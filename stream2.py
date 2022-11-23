@@ -3,6 +3,9 @@ import streamlit.components.v1 as stc
 import pandas as pd
 import numpy as np
 from PIL import Image
+import cufflinks as cf
+import requests
+import io
 
 ##raw import data 2019
 url19 = "https://raw.githubusercontent.com/bulattoolpix/streamlit-example/master/Iris.csv" 
