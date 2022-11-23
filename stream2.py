@@ -35,6 +35,15 @@ if uploaded_file is not None:
     dataframe = pd.read_csv(uploaded_file)
     st.write(dataframe)
     df=dataframe
+    csv = convert_df(df.to_csv().encode('utf-8'))
+
+   
+if st.download_button(
+    label="Download data as CSV",
+    data=csv,
+    file_name='large_df.csv',
+    mime='text/csv',
+)
 df.drop('Id', axis = 1, inplace = True)
 # Renaming the target column into numbers to aid training of the model
 df['Species']= df['Species'].map({'Iris-setosa':0, 'Iris-versicolor':1, 'Iris-virginica':2})
@@ -53,17 +62,7 @@ classifier = RandomForestClassifier()
 classifier.fit(X_train, y_train)
 
 
-def convert_df(df):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df.to_csv().encode('utf-8')
-    csv = convert_df(df)
 
-    st.download_button(
-    label="Download data as CSV",
-    data=csv,
-    file_name='large_df.csv',
-    mime='text/csv',
-)
 
 def welcome():
     return 'welcome all'
