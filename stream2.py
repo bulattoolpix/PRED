@@ -4,9 +4,6 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 
-df = pd.read_csv('BankNote_Authentication.csv')
-df.head()
-
 ##raw import data 2019
 url19 = "https://raw.githubusercontent.com/bulattoolpix/streamlit-example/master/Iris.csv" 
 download19 = requests.get(url19_1,url19).content
