@@ -6,6 +6,9 @@ from PIL import Image
 import requests
 import io
 
+!pip install scikit-learn
+
+
 ##raw import data 2019
 url19 = "https://raw.githubusercontent.com/bulattoolpix/streamlit-example/master/Iris.csv" 
 download19 = requests.get(url19).content
