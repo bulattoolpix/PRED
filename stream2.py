@@ -20,22 +20,27 @@ Upload your experiment results to see the significance of your A/B test.
 
     
 uploaded_file = st.file_uploader("Choose a file")
-if uploaded_file is not None:
-    # To read file as bytes:
-    ##bytes_data = uploaded_file.getvalue()
-    ##st.write(bytes_data)
 
-    # To convert to a string based IO:
-    stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
-    ##st.write(stringio)
+    uploaded_file = st.file_uploader(
+        "",
+        key="1",
+        help="To activate 'wide mode', go to the hamburger menu > Settings > turn on 'wide mode'",
+    )
 
-    # To read file as string:
-    string_data = stringio.read()
-    ##st.write(string_data)
+    if uploaded_file is not None:
+      
+        df = pd.read_csv(uploaded_file)
+        uploaded_file.seek(0)
+        st.write(df)
 
-    # Can be used wherever a "file-like" object is accepted:
-    df= pd.read_csv(string_data)
-    st.write(df)   
+    else:
+        st.info(
+            f"""
+                👆 Upload a .csv file first. Sample to try: [biostats.csv](https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv)
+                """
+        )
+
+        st.stop()
 
    
 df.drop('Id', axis = 1, inplace = True)
