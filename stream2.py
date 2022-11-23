@@ -26,14 +26,7 @@ if uploaded_file is not None:
     # Can be used wherever a "file-like" object is accepted:
     dataframe = pd.read_csv(uploaded_file)
     st.write(dataframe)
-
-
-
-##raw import data 2019
-url19 = "https://raw.githubusercontent.com/bulattoolpix/streamlit-example/master/Iris.csv" 
-download19 = requests.get(url19).content
-##df= pd.read_csv(io.StringIO(download19.decode('utf-8')))
-df=dataframe
+    df=dataframe
 df.drop('Id', axis = 1, inplace = True)
 # Renaming the target column into numbers to aid training of the model
 df['Species']= df['Species'].map({'Iris-setosa':0, 'Iris-versicolor':1, 'Iris-virginica':2})
@@ -100,6 +93,10 @@ if __name__=='__main__':
     main()
 
     
+
+
+
+
     
     
 
