@@ -34,9 +34,8 @@ if uploaded_file is not None:
     ##st.write(string_data)
 
     # Can be used wherever a "file-like" object is accepted:
-    dataframe = pd.read_csv(uploaded_file)
-    st.write(dataframe)
-    df=dataframe
+     df= pd.read_csv(uploaded_file)
+
 
 
    
@@ -74,6 +73,7 @@ def prediction(sepal_length, sepal_width, petal_length, petal_width):
 # this is the main function in which we define our webpage 
 
 def main():
+     st.write(df)
       # giving the webpage a title
         
     st.title("Iris Flower Prediction")
@@ -81,7 +81,7 @@ def main():
     # here we define some of the front end elements of the web page like 
     # the font and background color, the padding and the text to be displayed
     html_temp = """
-    <div style ="background-color:yellow;padding:13px">
+    <div style ="background-color:WHITE;padding:13px">
     <h1 style ="color:black;text-align:center;">Streamlit Iris Flower Classifier ML App </h1>
     </div>
     """
