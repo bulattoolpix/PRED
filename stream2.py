@@ -35,7 +35,7 @@ if uploaded_file is not None:
     dataframe = pd.read_csv(uploaded_file)
     st.write(dataframe)
     df=dataframe
-    csv = convert_df(df.to_csv().encode('utf-8'))
+
 
    
 df.drop('Id', axis = 1, inplace = True)
@@ -57,6 +57,21 @@ classifier.fit(X_train, y_train)
 
 
 
+def to_excel(df):
+    output = BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    df.to_excel(writer, index=False, sheet_name='Sheet1')
+    workbook = writer.book
+    worksheet = writer.sheets['Sheet1']
+    format1 = workbook.add_format({'num_format': '0.00'}) 
+    worksheet.set_column('A:A', None, format1)  
+    writer.save()
+    processed_data = output.getvalue()
+    return processed_data
+df_xlsx = to_excel(df)
+st.download_button(label='📥 Download Current Result',
+                                data=df_xlsx ,
+                                file_name= 'df_test.xlsx')
 
 def welcome():
     return 'welcome all'
@@ -104,12 +119,6 @@ def main():
         result = prediction(sepal_length, sepal_width, petal_length, petal_width)
     st.success('The output is {}'.format(result))
     
-    if st.download_button(
-    label="Download data as CSV",
-    data=csv,
-    file_name='large_df.csv',
-    mime='text/csv'
-)
      
 if __name__=='__main__':
     main()
