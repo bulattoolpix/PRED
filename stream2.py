@@ -1,125 +1,78 @@
 import streamlit as st 
 import streamlit.components.v1 as stc 
+import pandas as pd
+import numpy as np
+from PIL import Image
+
+df = pd.read_csv('BankNote_Authentication.csv')
+df.head()
+
+##raw import data 2019
+url19 = "https://raw.githubusercontent.com/bulattoolpix/streamlit-example/master/Iris.csv" 
+download19 = requests.get(url19_1,url19).content
+df= pd.read_csv(io.StringIO(download19.decode('utf-8')))
+
+df.drop('Id', axis = 1, inplace = True)
+# Renaming the target column into numbers to aid training of the model
+df['Species']= df['Species'].map({'Iris-setosa':0, 'Iris-versicolor':1, 'Iris-virginica':2})
+  
+# splitting the data into the columns which need to be trained(X) and the target column(y)
+X = df.iloc[:, :-1]
+y = df.iloc[:, -1]
+  
+# splitting data into training and testing data with 30 % of data as testing data respectively
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 0)
+  
+# importing the random forest classifier model and training it on the dataset
+from sklearn.ensemble import RandomForestClassifier
+classifier = RandomForestClassifier()
+classifier.fit(X_train, y_train)
 
 
-# Load EDA
-import pandas as pd 
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics.pairwise import cosine_similarity,linear_kernel
-
-
-# Load Our Dataset
-def load_data(data):
-	df = pd.read_csv(data)
-	return df 
-
-
-# Fxn
-# Vectorize + Cosine Similarity Matrix
-
-def vectorize_text_to_cosine_mat(data):
-	count_vect = CountVectorizer()
-	cv_mat = count_vect.fit_transform(data)
-	# Get the cosine
-	cosine_sim_mat = cosine_similarity(cv_mat)
-	return cosine_sim_mat
-
-
-
-# Recommendation Sys
-@st.cache
-def get_recommendation(title,cosine_sim_mat,df,num_of_rec=10):
-	# indices of the course
-	course_indices = pd.Series(df.index,index=df['course_title']).drop_duplicates()
-	# Index of course
-	idx = course_indices[title]
-
-	# Look into the cosine matr for that index
-	sim_scores =list(enumerate(cosine_sim_mat[idx]))
-	sim_scores = sorted(sim_scores,key=lambda x: x[1],reverse=True)
-	selected_course_indices = [i[0] for i in sim_scores[1:]]
-	selected_course_scores = [i[0] for i in sim_scores[1:]]
-
-	# Get the dataframe & title
-	result_df = df.iloc[selected_course_indices]
-	result_df['similarity_score'] = selected_course_scores
-	final_recommended_courses = result_df[['course_title','similarity_score','url','price','num_subscribers']]
-	return final_recommended_courses.head(num_of_rec)
-
-
-RESULT_TEMP = """
-<div style="width:90%;height:100%;margin:1px;padding:5px;position:relative;border-radius:5px;border-bottom-right-radius: 60px;
-box-shadow:0 0 15px 5px #ccc; background-color: #a8f0c6;
-  border-left: 5px solid #6c6c6c;">
-<h4>{}</h4>
-<p style="color:blue;"><span style="color:black;">📈Score::</span>{}</p>
-<p style="color:blue;"><span style="color:black;">🔗</span><a href="{}",target="_blank">Link</a></p>
-<p style="color:blue;"><span style="color:black;">💲Price:</span>{}</p>
-<p style="color:blue;"><span style="color:black;">🧑‍🎓👨🏽‍🎓 Students:</span>{}</p>
-</div>
-"""
-
-# Search For Course 
-@st.cache
-def search_term_if_not_found(term,df):
-	result_df = df[df['course_title'].str.contains(term)]
-	return result_df
-
-
+def welcome():
+    return 'welcome all'
+  
+# defining the function which will make the prediction using 
+# the data which the user inputs
+def prediction(sepal_length, sepal_width, petal_length, petal_width):  
+   
+    prediction = classifier.predict(
+        [[sepal_length, sepal_width, petal_length, petal_width]])
+    print(prediction)
+    return prediction
+      
+# this is the main function in which we define our webpage 
 def main():
-
-	st.title("Course Recommendation App")
-
-	menu = ["Home","Recommend","About"]
-	choice = st.sidebar.selectbox("Menu",menu)
-
-	df = load_data("data/udemy_course_data.csv")
-
-	if choice == "Home":
-		st.subheader("Home")
-		st.dataframe(df.head(10))
-
-
-	elif choice == "Recommend":
-		st.subheader("Recommend Courses")
-		cosine_sim_mat = vectorize_text_to_cosine_mat(df['course_title'])
-		search_term = st.text_input("Search")
-		num_of_rec = st.sidebar.number_input("Number",4,30,7)
-		if st.button("Recommend"):
-			if search_term is not None:
-				try:
-					results = get_recommendation(search_term,cosine_sim_mat,df,num_of_rec)
-					with st.beta_expander("Results as JSON"):
-						results_json = results.to_dict('index')
-						st.write(results_json)
-
-					for row in results.iterrows():
-						rec_title = row[1][0]
-						rec_score = row[1][1]
-						rec_url = row[1][2]
-						rec_price = row[1][3]
-						rec_num_sub = row[1][4]
-
-						# st.write("Title",rec_title,)
-						stc.html(RESULT_TEMP.format(rec_title,rec_score,rec_url,rec_url,rec_num_sub),height=350)
-				except:
-					results= "Not Found"
-					st.warning(results)
-					st.info("Suggested Options include")
-					result_df = search_term_if_not_found(search_term,df)
-					st.dataframe(result_df)
-
-
-
-				# How To Maximize Your Profits Options Trading
-
-
-
-
-	else:
-		st.subheader("About")
-		st.text("Built with Streamlit & Pandas")
-
-
-if __name__ == '__main__':
-	main()
+      # giving the webpage a title
+    st.title("Iris Flower Prediction")
+      
+    # here we define some of the front end elements of the web page like 
+    # the font and background color, the padding and the text to be displayed
+    html_temp = """
+    <div style ="background-color:yellow;padding:13px">
+    <h1 style ="color:black;text-align:center;">Streamlit Iris Flower Classifier ML App </h1>
+    </div>
+    """
+      
+    # this line allows us to display the front end aspects we have 
+    # defined in the above code
+    st.markdown(html_temp, unsafe_allow_html = True)
+      
+    # the following lines create text boxes in which the user can enter 
+    # the data required to make the prediction
+    sepal_length = st.text_input("Sepal Length", "Type Here")
+    sepal_width = st.text_input("Sepal Width", "Type Here")
+    petal_length = st.text_input("Petal Length", "Type Here")
+    petal_width = st.text_input("Petal Width", "Type Here")
+    result =""
+      
+    # the below line ensures that when the button called 'Predict' is clicked, 
+    # the prediction function defined above is called to make the prediction 
+    # and store it in the variable result
+    if st.button("Predict"):
+        result = prediction(sepal_length, sepal_width, petal_length, petal_width)
+    st.success('The output is {}'.format(result))
+     
+if __name__=='__main__':
+    main()
