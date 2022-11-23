@@ -6,7 +6,7 @@ from PIL import Image
 import requests
 import io
 from io import StringIO
-from st_aggrid import AgGrid
+
 
 from functionforDownloadButtons import download_button
 
