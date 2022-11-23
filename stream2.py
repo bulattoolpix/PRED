@@ -38,7 +38,7 @@ else:
                 """
         )
 
-st.stop()
+
 
    
 df.drop('Id', axis = 1, inplace = True)
