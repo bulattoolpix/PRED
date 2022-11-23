@@ -22,7 +22,6 @@ Upload your experiment results to see the significance of your A/B test.
 uploaded_file = st.file_uploader("Choose a file")
 
 if uploaded_file is not None:
-        file_container = st.expander("Check your uploaded .csv")
         df = pd.read_csv(uploaded_file)
         uploaded_file.seek(0)
         file_container.write(df)
