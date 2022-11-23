@@ -129,6 +129,20 @@ if __name__=='__main__':
 
 
 
+with c29:
+
+    CSVButton = download_button(
+        df,
+        "File.csv",
+        "Download to CSV",
+    )
+
+with c30:
+    CSVButton = download_button(
+        df,
+        "File.csv",
+        "Download to TXT",
+    )
 
     
     
