@@ -17,10 +17,6 @@ Upload your experiment results to see the significance of your A/B test.
 )
 
 
-c29 = st.columns([1, 6, 1])
-
-with c29:
-
     
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
@@ -115,8 +111,6 @@ if __name__=='__main__':
     
     
 
-
-with c29:
 
     CSVButton = download_button(
         df,
