@@ -53,9 +53,23 @@ classifier = RandomForestClassifier()
 classifier.fit(X_train, y_train)
 
 
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode('utf-8')
+    csv = convert_df(df)
+
+    st.download_button(
+    label="Download data as CSV",
+    data=csv,
+    file_name='large_df.csv',
+    mime='text/csv',
+)
+
 def welcome():
     return 'welcome all'
   
+    
+    
 # defining the function which will make the prediction using 
 # the data which the user inputs
 def prediction(sepal_length, sepal_width, petal_length, petal_width):  
@@ -100,19 +114,6 @@ def main():
 if __name__=='__main__':
     main()
     
-  def convert_df(df):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df.to_csv().encode('utf-8')
-
-csv = convert_df(df)
-
-st.download_button(
-    label="Download data as CSV",
-    data=csv,
-    file_name='large_df.csv',
-    mime='text/csv',
-)
-
     
 
 
