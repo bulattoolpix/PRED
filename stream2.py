@@ -69,9 +69,6 @@ def to_excel(df):
     processed_data = output.getvalue()
     return processed_data
 df_xlsx = to_excel(df)
-st.download_button(label='📥 Download Current Result',
-                                data=df_xlsx ,
-                                file_name= 'df_test.xlsx')
 
 def welcome():
     return 'welcome all'
@@ -88,8 +85,10 @@ def prediction(sepal_length, sepal_width, petal_length, petal_width):
     return prediction
       
 # this is the main function in which we define our webpage 
+
 def main():
       # giving the webpage a title
+        
     st.title("Iris Flower Prediction")
       
     # here we define some of the front end elements of the web page like 
@@ -118,7 +117,10 @@ def main():
     if st.button("Predict"):
         result = prediction(sepal_length, sepal_width, petal_length, petal_width)
     st.success('The output is {}'.format(result))
-    
+    if st.download_button(label='📥 Download Current Result',
+                                data=df_xlsx ,
+                                file_name= 'df_test.xlsx')
+
      
 if __name__=='__main__':
     main()
