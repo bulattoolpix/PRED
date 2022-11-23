@@ -27,9 +27,7 @@ if uploaded_file is not None:
         file_container.write(df)
 else:
         st.info(
-            """
-                 Upload a .csv file first. Sample to try: [biostats.csv](https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv)
-                """
+       
         )
 
         st.stop()
