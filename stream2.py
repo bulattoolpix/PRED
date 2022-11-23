@@ -102,9 +102,7 @@ def main():
     if st.button("Predict"):
         result = prediction(sepal_length, sepal_width, petal_length, petal_width)
     st.success('The output is {}'.format(result))
-    if st.download_button(label='📥 Download Current Result',
-                                data=df_xlsx ,
-                                file_name= 'df_test.xlsx')
+
 
      
 if __name__=='__main__':
