@@ -6,7 +6,7 @@ from PIL import Image
 import requests
 import io
 
-!pip install scikit-learn
+pip install scikit-learn
 
 
 ##raw import data 2019
