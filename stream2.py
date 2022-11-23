@@ -38,12 +38,6 @@ if uploaded_file is not None:
     csv = convert_df(df.to_csv().encode('utf-8'))
 
    
-if st.download_button(
-    label="Download data as CSV",
-    data=csv,
-    file_name='large_df.csv',
-    mime='text/csv',
-)
 df.drop('Id', axis = 1, inplace = True)
 # Renaming the target column into numbers to aid training of the model
 df['Species']= df['Species'].map({'Iris-setosa':0, 'Iris-versicolor':1, 'Iris-virginica':2})
@@ -109,6 +103,13 @@ def main():
     if st.button("Predict"):
         result = prediction(sepal_length, sepal_width, petal_length, petal_width)
     st.success('The output is {}'.format(result))
+    
+    if st.download_button(
+    label="Download data as CSV",
+    data=csv,
+    file_name='large_df.csv',
+    mime='text/csv'
+)
      
 if __name__=='__main__':
     main()
