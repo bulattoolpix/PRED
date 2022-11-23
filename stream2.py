@@ -34,8 +34,8 @@ if uploaded_file is not None:
     ##st.write(string_data)
 
     # Can be used wherever a "file-like" object is accepted:
-     df= pd.read_csv(uploaded_file)
-     st.write(df)   
+    df= pd.read_csv(string_data)
+    st.write(df)   
 
    
 df.drop('Id', axis = 1, inplace = True)
