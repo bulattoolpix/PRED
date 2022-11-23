@@ -35,6 +35,8 @@ if uploaded_file is not None:
 
     # Can be used wherever a "file-like" object is accepted:
      df= pd.read_csv(uploaded_file)
+ if uploaded_file is not None: 
+    st.write(df)   
 
 
 
@@ -73,7 +75,7 @@ def prediction(sepal_length, sepal_width, petal_length, petal_width):
 # this is the main function in which we define our webpage 
 
 def main():
-     st.write(df)
+    
       # giving the webpage a title
         
     st.title("Iris Flower Prediction")
