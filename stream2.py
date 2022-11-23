@@ -8,7 +8,7 @@ import io
 
 ##raw import data 2019
 url19 = "https://raw.githubusercontent.com/bulattoolpix/streamlit-example/master/Iris.csv" 
-download19 = requests.get(url19_1,url19).content
+download19 = requests.get(url19).content
 df= pd.read_csv(io.StringIO(download19.decode('utf-8')))
 
 df.drop('Id', axis = 1, inplace = True)
