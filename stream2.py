@@ -25,20 +25,20 @@ uploaded_file = st.file_uploader(
         help="To activate 'wide mode', go to the hamburger menu > Settings > turn on 'wide mode'",
     )
 
-    if uploaded_file is not None:
+if uploaded_file is not None:
       
         df = pd.read_csv(uploaded_file)
         uploaded_file.seek(0)
         st.write(df)
 
-    else:
+else:
         st.info(
             f"""
                 👆 Upload a .csv file first. Sample to try: [biostats.csv](https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv)
                 """
         )
 
-        st.stop()
+st.stop()
 
    
 df.drop('Id', axis = 1, inplace = True)
