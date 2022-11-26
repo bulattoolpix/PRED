@@ -205,36 +205,30 @@ def xgb_page_builder(data):
 
   
  
+def xgb_predictor(model_xgb, rows, columns, df, drop_list):
+    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+    st.text('This process probably takes few seconds...')
+    st.write('Note: Currently, the CSV file should have **exactly the same** format with **training dataset**:', df.head(2))
+    st.write(
+        f'Training dataset includes **{rows}** rows and **{columns}** columns')
+    st.write('')
 
-def xgb_predictor(model_xgb, rows, columns, df):
-    
-        uploaded_file = st.file_uploader(
-        "",
-        key="1",
-     
-         )
-
-      if uploaded_file is not None:
-      
-        df = pd.read_csv(uploaded_file)
-        uploaded_file.seek(0)
-        df, data, filename, rows, columns = upload_different_data(uploaded_file)
-        data1 = pd.read_csv(uploaded_file, low_memory=False)
+    if uploaded_file:
+        data = pd.read_csv(uploaded_file, low_memory=False)
         st.write('-'*80)
-        st.write('Uploaded data:', data1.head(30))
+        st.write('Uploaded data:', data.head(30))
         st.write(
-            f'Uploaded data includes **{data1.shape[0]}** rows and **{data1.shape[1]}** columns')
+            f'Uploaded data includes **{data.shape[0]}** rows and **{data.shape[1]}** columns')
         start_time = datetime.datetime.now()
-        data1 = data1.fillna(0)
-        ##data=df ##,  = data_preprocessing(df)
-        datas = data1.copy()
-        scaler = MinMaxScaler()  
-        ##data2  = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается не нужно когда предиктор ? потому что идет без колонки таргет 
-        X3 = scaler.fit_transform(datas)
-        ##y = df.iloc[:, -1]
-        prediction = model_xgb.predict( X3)                                ####prediction
+        data = data.dropna(axis=0, how='all')
+        
+        data2 = data.copy()
+        X = data.drop(columns=['status'])
+        prediction = model_xgb.predict(X)
         prediction_time = (datetime.datetime.now() - start_time).seconds
-        ##data2 ['status'] = [prediction]
+        data['status'] = ['Approved' if i ==
+                          0 else 'Declined' for i in prediction]
+        
 
         
         st.write('')
@@ -272,6 +266,19 @@ def xgb_predictor(model_xgb, rows, columns, df):
      
 def main():
     """Streamlit demo web app"""
+    
+    uploaded_file = st.file_uploader(
+        "",
+        key="1",
+     
+    )
+
+    if uploaded_file is not None:
+      
+        df = pd.read_csv(uploaded_file)
+        uploaded_file.seek(0)
+    
+    df, data, filename, rows, columns = upload_different_data(uploaded_file)
     
 
 
