@@ -8,6 +8,7 @@ import io
 from io import StringIO
 import datetime
 from sklearn import metrics
+from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler, RobustScaler
 from sklearn.preprocessing import MinMaxScaler
