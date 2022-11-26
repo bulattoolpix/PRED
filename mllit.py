@@ -235,8 +235,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
             x, '%m/%d/%Y %H:%M') for x in data.time]
         prediction = model_xgb.predict(X2)
         prediction_time = (datetime.datetime.now() - start_time).seconds
-        data2['status'] = ['Approved' if i ==
-                          0 else 'Declined' for i in prediction]
+        data2['status'] = [prediction]
         
         st.write('')
         st.write('-'*80)
@@ -252,7 +251,11 @@ def xgb_predictor(model_xgb, rows, columns, df):
         precision_pending = precision_score(data2.status, prediction)
         st.write('Metrics on uploaded data:')
         st.text("Note: This is only temporary since new data won't have labels")
- 
+        st.write('Accuracy:', round(100*accuracy_pending, 2), '%')
+        st.write('Precision:', round(100*precision_pending, 2), '%')
+        st.write('Recall:', round(100*recall_pending, 2), '%')
+        st.write('ROC AUC:', round(100*roc_auc_pending, 2), '%')
+        st.write('F1:', round(100*f1_pending, 2), '%')
         # Download prediction as a CSV file
         prediction_downloader(data)
         
