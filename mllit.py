@@ -208,6 +208,18 @@ def xgb_page_builder(data):
 
 def xgb_predictor(model_xgb, rows, columns, df):
     
+    uploaded_file = st.file_uploader(
+        "",
+        key="1",
+     
+    )
+
+    if uploaded_file is not None:
+      
+        df = pd.read_csv(uploaded_file)
+        uploaded_file.seek(0)
+    
+    df, data, filename, rows, columns = upload_different_data(uploaded_file)
         data1 = pd.read_csv(uploaded_file, low_memory=False)
         st.write('-'*80)
         st.write('Uploaded data:', data1.head(30))
@@ -269,19 +281,6 @@ def main():
     st.sidebar.title('Menu')
     choose_model = st.sidebar.selectbox("Choose the page or model", [
                                         "Home",  "XGB"])
-    
-    uploaded_file = st.file_uploader(
-        "",
-        key="1",
-     
-    )
-
-    if uploaded_file is not None:
-      
-        df = pd.read_csv(uploaded_file)
-        uploaded_file.seek(0)
-    
-    df, data, filename, rows, columns = upload_different_data(uploaded_file)
     
     if choose_model == "Home":
         home_page_builder(df, data, rows, columns)
