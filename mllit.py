@@ -222,10 +222,13 @@ def xgb_predictor(model_xgb, rows, columns, df):
         start_time = datetime.datetime.now()
         data = data.fillna(0)
         data2 = data.copy()
+        data2  = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
+        X2 = scaler.fit_transform( data2 )
+        y = df.iloc[:, -1]
    
-        prediction = model_xgb.predict(X)                                 ####prediction
+        prediction = model_xgb.predict(X2)                                 ####prediction
         prediction_time = (datetime.datetime.now() - start_time).seconds
-        data2['status'] = [prediction]
+        data2 ['status'] = [prediction]
         
         st.write('')
         st.write('-'*80)
@@ -247,7 +250,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
         ##st.write('ROC AUC:', round(100*roc_auc_pending, 2), '%')
         st.write('F1:', round(100*f1_pending, 2), '%')
         # Download prediction as a CSV file
-        prediction_downloader(data)
+        prediction_downloader( data2 )
          
           
           # Plot feature importance
@@ -287,7 +290,7 @@ def main():
     if choose_model == "Home":
         home_page_builder(df, data, rows, columns)
     if choose_model == "XGB":
-        model_xgb = xgb_page_builder(X)
+        model_xgb = xgb_page_builder(df)
         if(st.checkbox("Want to Use this model to predict on a new dataset?")):
             xgb_predictor(model_xgb, rows, columns, df)
 
