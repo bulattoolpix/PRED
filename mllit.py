@@ -80,10 +80,8 @@ def XGB_train_metrics(df, params_set):
     return accuracy_xgb, f1_xgb,recall_xgb, precision_xgb, model_xgb ##roc_auc_xgb, 
  
 
-def prediction(sepal_length, sepal_width, petal_length, petal_width):  
-   
-    prediction =  model_xgb.predict(
-        [[sepal_length, sepal_width, petal_length, petal_width]])
+
+
 
  
 
@@ -227,7 +225,6 @@ def xgb_page_builder(data):
 def xgb_predictor(model_xgb2, rows, columns, data):
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     st.text('This process probably takes few seconds...')
-
     st.write(
         f'Training dataset includes **{rows}** rows and **{columns}** columns')
     st.write('')
@@ -251,13 +248,9 @@ def xgb_predictor(model_xgb2, rows, columns, data):
         ##data['status'] =model_xgb2.predict(X)
         data['status'] =prediction(X)
         
-        st.write('')
-        st.write('-'*80)
-        st.write('Prediction:')
-        st.write(data.head(30))
-        st.text(f'Running time: {prediction_time} s')
-        st.write('')
+        
 
+        
         accuracy_pending = accuracy_score(data2.status, prediction)
         f1_pending = f1_score(data2.status, prediction)
         ##roc_auc_pending = roc_auc_score(data2.status, prediction)
