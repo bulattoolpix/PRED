@@ -73,8 +73,10 @@ def XGB_train_metrics(df, params_set):
     accuracy_xgb = accuracy_score(y_test, y_pred)
     f1_xgb = f1_score(y_test, y_pred)
     roc_auc_xgb = roc_auc_score(y_test, y_pred)
-    recall_xgb = recall_score(y_test, y_pred)
-    precision_xgb = precision_score(y_test, y_pred)
+    recall_xgb = recall_score(y_test, y_pred,pos_label='positive'
+                                           average='micro')
+    precision_xgb = precision_score(y_test, y_pred,pos_label='positive'
+                                           average='micro')
     return accuracy_xgb, f1_xgb, roc_auc_xgb, recall_xgb, precision_xgb, model_xgb
  
 
@@ -199,6 +201,8 @@ def xgb_page_builder(data):
     st.table(pd.DataFrame(data=[round(accuracy_xgb * 100.0, 2), round(precision_xgb * 100.0, 2), round(recall_xgb*100, 2), round(roc_auc_xgb*100, 2), round(f1_xgb*100, 2)],
                           index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)', 'ROC_AUC', 'F1'], columns=['%']))
     st.subheader('Feature Importance:')
+
+    
 
     # Plot feature importance
     df_feature = pd.DataFrame.from_dict(
