@@ -66,6 +66,7 @@ def XGB_train_metrics(df, params_set):
                               subsample=params_set[3], colsample_bylevel=params_set[4], colsample_bytree=params_set[5])
     # model = XGBClassifier()
     model_xgb.fit(X_train, y_train)
+    model_xgb2=model_xgb
 
     # Make predictions for test data
     y_pred = model_xgb.predict(X_test)
@@ -204,8 +205,25 @@ def xgb_page_builder(data):
     
 
   
+
+  
+  
+  
  
-def xgb_predictor(model_xgb, rows, columns, df):
+
+
+
+
+
+
+
+
+
+
+
+
+    
+def xgb_predictor(model_xgb2, rows, columns, df):
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     st.text('This process probably takes few seconds...')
     st.write('Note: Currently, the CSV file should have **exactly the same** format with **training dataset**:', df.head(2))
@@ -228,7 +246,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
         ##prediction_time = (datetime.datetime.now() - start_time).seconds
         scaler = MinMaxScaler()  
         X = scaler.fit_transform( data )
-        data['status'] =model_xgb.predict(X)
+        data['status'] =model_xgb2.predict(X)
 
         
         st.write('')
