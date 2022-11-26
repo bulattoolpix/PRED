@@ -215,23 +215,26 @@ def xgb_predictor(model_xgb, rows, columns, df):
     st.write('')
 
     if uploaded_file:
-        data = pd.read_csv(uploaded_file, low_memory=False)
+        data1 = pd.read_csv(uploaded_file, low_memory=False)
         st.write('-'*80)
         st.write('Uploaded data:', data.head(30))
         st.write(
             f'Uploaded data includes **{data.shape[0]}** rows and **{data.shape[1]}** columns')
         start_time = datetime.datetime.now()
-        data = data.fillna(0)
+        data1 = data1.fillna(0)
         ##data=df ##,  = data_preprocessing(df)
-        data2 = data.copy()
+        datas = data1.copy()
         scaler = MinMaxScaler()  
         ##data2  = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается не нужно когда предиктор ? потому что идет без колонки таргет 
-        X2 = scaler.fit_transform(data2)
+        X3 = scaler.fit_transform(datas)
         y = df.iloc[:, -1]
         
-        prediction = model_xgb.predict(X2)                                 ####prediction
+        prediction = model_xgb.predict(X3)                                 ####prediction
         prediction_time = (datetime.datetime.now() - start_time).seconds
-        data2 ['status'] = [prediction]
+        ##data2 ['status'] = [prediction]
+        datas['status'] = ['setosa' if i ==
+                          0 'versa' if i ==
+                          0 else 'virgi' for i in prediction]
         
         st.write('')
         st.write('-'*80)
