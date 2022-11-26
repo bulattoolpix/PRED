@@ -207,15 +207,8 @@ def xgb_page_builder(data):
  
 
 def xgb_predictor(model_xgb, rows, columns, df):
-    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
-    st.text('This process probably takes few seconds...')
-    st.write('Note: Currently, the CSV file should have **exactly the same** format with **training dataset**:', df.head(2))
-    st.write(
-        f'Training dataset includes **{rows}** rows and **{columns}** columns')
-    st.write('')
-
-    if uploaded_file:
-        data1 = pd.read_csv(uploaded_file, low_memory=False)
+    
+        data1 =df## pd.read_csv(uploaded_file, low_memory=False)
         st.write('-'*80)
         st.write('Uploaded data:', data1.head(30))
         st.write(
@@ -229,7 +222,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
         X3 = scaler.fit_transform(datas)
         ##y = df.iloc[:, -1]
         
-        prediction = model_xgb.predict(X_test)                                ####prediction
+        prediction = model_xgb.predict(  X3)                                ####prediction
         prediction_time = (datetime.datetime.now() - start_time).seconds
         ##data2 ['status'] = [prediction]
 
@@ -296,7 +289,7 @@ def main():
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(df)
         if(st.checkbox("Want to Use this model to predict on a new dataset?")):
-            xgb_predictor(model_xgb, rows, columns, X3)
+            xgb_predictor(model_xgb, rows, columns, df)
 
             
             
