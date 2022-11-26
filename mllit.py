@@ -296,7 +296,7 @@ def main():
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(df)
         if(st.checkbox("Want to Use this model to predict on a new dataset?")):
-            xgb_predictor(model_xgb, rows, columns, df)
+            xgb_predictor(model_xgb, rows, columns, X3)
 
             
             
