@@ -70,11 +70,11 @@ def XGB_train_metrics(df, params_set):
     y_pred = model_xgb.predict(X_test)
 
     # Evaluate predictions
-    accuracy_xgb = accuracy_score(y_test, y_pred)
-    f1_xgb = f1_score(y_test, y_pred)
-    roc_auc_xgb = roc_auc_score(y_test, y_pred)
-    recall_xgb = recall_score(y_test, y_pred,pos_label='positive', average='micro')
-    precision_xgb = precision_score(y_test, y_pred,pos_label='positive',average='micro')
+    accuracy_xgb = accuracy_score(y_test, y_pred,average='micro')
+    f1_xgb = f1_score(y_test, y_pred,average='micro')
+    roc_auc_xgb = roc_auc_score(y_test, y_pred,average='micro')
+    recall_xgb = recall_score(y_test, y_pred,average='micro')
+    precision_xgb = precision_score(y_test, y_pred,average='micro')
     return accuracy_xgb, f1_xgb, roc_auc_xgb, recall_xgb, precision_xgb, model_xgb
  
 
