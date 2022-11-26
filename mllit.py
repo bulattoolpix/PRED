@@ -40,6 +40,7 @@ from sklearn.model_selection import train_test_split
 def upload_different_data(uploaded_file):
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     df = pd.read_csv(uploaded_file, low_memory=False)
+    df.iloc[:, -1]
     rows = df.shape[0]
     columns = df.shape[1]
     
@@ -135,7 +136,7 @@ def home_page_builder(df, data, rows, columns):
 
     # show data visulization
     if st.checkbox('Show Visualization'):
-        fig = px.histogram(df.iloc[:, -1], x='target class',
+        fig = px.histogram(df.iloc[:, -1], x='Species',
                            title='Distribution of Target Variable "')
         st.plotly_chart(fig)
         st.write('We can see Approved is about three times of Decliened, which may bring an imbalanced issue for prediction - we will deal with this issue during modeling.')
