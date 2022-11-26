@@ -222,13 +222,14 @@ def xgb_predictor(model_xgb, rows, columns, df):
             f'Uploaded data includes **{data.shape[0]}** rows and **{data.shape[1]}** columns')
         start_time = datetime.datetime.now()
         data = data.fillna(0)
+        ##data=df ##,  = data_preprocessing(df)
         data2 = data.copy()
         scaler = MinMaxScaler()  
         ##data2  = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается не нужно когда предиктор ? потому что идет без колонки таргет 
-        X2 = scaler.fit_transform( data2 )
+        X2 = scaler.fit_transform(data2)
         y = df.iloc[:, -1]
-   
-        prediction = model_xgb.predict(data2)                                 ####prediction
+        
+        prediction = model_xgb.predict(X2)                                 ####prediction
         prediction_time = (datetime.datetime.now() - start_time).seconds
         data2 ['status'] = [prediction]
         
