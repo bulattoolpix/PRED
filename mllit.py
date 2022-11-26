@@ -6,7 +6,20 @@ from PIL import Image
 import requests
 import io
 from io import StringIO
-
+from sklearn import metrics
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import StandardScaler, RobustScaler
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, accuracy_score, classification_report, confusion_matrix
+from xgboost import XGBClassifier
+from sklearn.linear_model import LogisticRegression
+import plotly.express as px
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+import os
+import base64
+##from mlxtend.plotting import plot_decision_regions
+from sklearn.decomposition import PCA
 
 from functionforDownloadButtons import download_button
 from sklearn.preprocessing import OrdinalEncoder, LabelEncoder
