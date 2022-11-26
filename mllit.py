@@ -95,7 +95,7 @@ def feature_summary(data):
         [data[col].dtype for i, col in enumerate(data.columns)])
     for i, col in enumerate(data.columns):
         if 'float' in str(data[col].dtype) or 'int' in str(data[col].dtype):
-            df.at[col, 'Max/Min'] = str(round(data[col].max(), 2)) + \'/' + str(round(data[col].min(), 2))
+            df.at[col, 'Max/Min'] = str(round(data[col].max(), 2)) + '/' + str(round(data[col].min(), 2))
             df.at[col, 'Mean'] = data[col].mean()
             df.at[col, 'Std'] = data[col].std()
             df.at[col, 'Skewness'] = data[col].skew()
