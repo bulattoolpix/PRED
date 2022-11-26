@@ -45,7 +45,7 @@ def upload_different_data(uploaded_file):
     
     # Drop rows with all Null
     df = df.fillna(0)
-    data=df ##, drop_list = data_preprocessing(df)
+    data,drop_list=df ##,  = data_preprocessing(df)
     return df, data, drop_list, 'Uploaded file', rows, columns
     
 
