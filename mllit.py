@@ -217,7 +217,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
     if uploaded_file:
         data1 = pd.read_csv(uploaded_file, low_memory=False)
         st.write('-'*80)
-        st.write('Uploaded data:', data.head(30))
+        st.write('Uploaded data:', data1.head(30))
         st.write(
             f'Uploaded data includes **{data.shape[0]}** rows and **{data.shape[1]}** columns')
         start_time = datetime.datetime.now()
