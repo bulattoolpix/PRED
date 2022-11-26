@@ -309,7 +309,7 @@ def main():
     if choose_model == "Home":
         home_page_builder(df, data, rows, columns)
     if choose_model == "XGB":
-        model_xgb = xgb_page_builder(df)
+        model_xgb = xgb_page_builder(data)
         if(st.checkbox("Want to Use this model to predict on a new dataset?")):
             xgb_predictor(model_xgb2, rows, columns, data)
 
