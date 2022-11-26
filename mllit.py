@@ -224,10 +224,9 @@ def xgb_predictor(model_xgb, rows, columns, df):
         
         data2 = data.copy()
         X = data ##.drop(columns=['status'])
-        prediction = model_xgb.predict(X)
-        prediction_time = (datetime.datetime.now() - start_time).seconds
-        data['status'] = ['Approved' if i ==
-                          0 else 'Declined' for i in prediction]
+        ##prediction = model_xgb.predict(X)
+        ##prediction_time = (datetime.datetime.now() - start_time).seconds
+        data['status'] =model_xgb.predict(X)
         
 
         
