@@ -72,7 +72,7 @@ def XGB_train_metrics(df, params_set):
     # Evaluate predictions
     accuracy_xgb = accuracy_score(y_test, y_pred)
     f1_xgb = f1_score(y_test, y_pred,average='micro')
-    roc_auc_xgb = roc_auc_score(y_test, y_pred,average='micro', multi_class='ovr')
+    roc_auc_xgb = roc_auc_score(y_test, y_pred,multi_class='ovr')
     recall_xgb = recall_score(y_test, y_pred,average='micro')
     precision_xgb = precision_score(y_test, y_pred,average='micro')
     return accuracy_xgb, f1_xgb, roc_auc_xgb, recall_xgb, precision_xgb, model_xgb
