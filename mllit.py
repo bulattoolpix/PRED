@@ -75,7 +75,8 @@ def XGB_train_metrics(df, params_set):
     ##roc_auc_xgb = roc_auc_score(y_test, y_pred,multi_class='ovr')
     recall_xgb = recall_score(y_test, y_pred,average='micro')
     precision_xgb = precision_score(y_test, y_pred,average='micro')
-    return accuracy_xgb, f1_xgb, roc_auc_xgb, recall_xgb, precision_xgb, model_xgb
+    return accuracy_xgb, f1_xgb, ##roc_auc_xgb, 
+    recall_xgb, precision_xgb, model_xgb
  
 
   
@@ -182,7 +183,8 @@ def xgb_page_builder(data):
                   subsample, colsample_bylevel, colsample_bytree]
 
     start_time = datetime.datetime.now()
-    accuracy_xgb, f1_xgb, roc_auc_xgb, recall_xgb, precision_xgb, model_xgb = XGB_train_metrics(
+   ##roc_auc_xgb, 
+        accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb = XGB_train_metrics(
         data, params_set)
     st.subheader('Model Introduction')
     st.write('')
