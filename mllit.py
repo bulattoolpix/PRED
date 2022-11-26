@@ -45,8 +45,8 @@ def upload_different_data(uploaded_file):
     
     # Drop rows with all Null
     df = df.fillna(0)
-    data,drop_list=df ##,  = data_preprocessing(df)
-    return df, data, drop_list, 'Uploaded file', rows, columns
+    data=df ##,  = data_preprocessing(df)
+    return df, data,  'Uploaded file', rows, columns
     
 
 
@@ -211,7 +211,7 @@ def xgb_page_builder(data):
     return model_xgb
  
 
-def xgb_predictor(model_xgb, rows, columns, df, drop_list):
+def xgb_predictor(model_xgb, rows, columns, df):
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     st.text('This process probably takes few seconds...')
     st.write('Note: Currently, the CSV file should have **exactly the same** format with **training dataset**:', df.head(2))
@@ -281,14 +281,14 @@ def main():
         df = pd.read_csv(uploaded_file)
         uploaded_file.seek(0)
     
-    df, data, drop_list, filename, rows, columns = upload_different_data(uploaded_file)
+    df, data, filename, rows, columns = upload_different_data(uploaded_file)
     
     if choose_model == "Home":
         home_page_builder(df, data, rows, columns)
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data)
         if(st.checkbox("Want to Use this model to predict on a new dataset?")):
-            xgb_predictor(model_xgb, rows, columns, df, drop_list)
+            xgb_predictor(model_xgb, rows, columns, df)
 
             
             
