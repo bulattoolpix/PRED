@@ -229,7 +229,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
         X3 = scaler.fit_transform(datas)
         ##y = df.iloc[:, -1]
         
-        prediction = model_xgb.predict(data1)                                 ####prediction
+        prediction = model_xgb.predict(X_test)                                ####prediction
         prediction_time = (datetime.datetime.now() - start_time).seconds
         ##data2 ['status'] = [prediction]
 
