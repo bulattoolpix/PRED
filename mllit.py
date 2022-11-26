@@ -223,6 +223,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
         start_time = datetime.datetime.now()
         data = data.fillna(0)
         data2 = data.copy()
+        scaler = MinMaxScaler()  
         data2  = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
         X2 = scaler.fit_transform( data2 )
         y = df.iloc[:, -1]
