@@ -184,7 +184,7 @@ def xgb_page_builder(data):
 
     start_time = datetime.datetime.now()
    ##roc_auc_xgb, 
-        accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb = XGB_train_metrics(
+    accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb = XGB_train_metrics(
         data, params_set)
     st.subheader('Model Introduction')
     st.write('')
