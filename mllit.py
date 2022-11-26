@@ -208,7 +208,7 @@ def xgb_page_builder(data):
 
 def xgb_predictor(model_xgb, rows, columns, df):
     
-        data1 =df## pd.read_csv(uploaded_file, low_memory=False)
+        data1 = pd.read_csv(uploaded_file, low_memory=False)
         st.write('-'*80)
         st.write('Uploaded data:', data1.head(30))
         st.write(
@@ -221,8 +221,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
         ##data2  = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается не нужно когда предиктор ? потому что идет без колонки таргет 
         X3 = scaler.fit_transform(datas)
         ##y = df.iloc[:, -1]
-        
-        prediction = model_xgb.predict(  X3)                                ####prediction
+        prediction = model_xgb.predict( X3)                                ####prediction
         prediction_time = (datetime.datetime.now() - start_time).seconds
         ##data2 ['status'] = [prediction]
 
