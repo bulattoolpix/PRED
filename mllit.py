@@ -214,7 +214,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
      
          )
 
-        if uploaded_file is not None:
+      if uploaded_file is not None:
       
         df = pd.read_csv(uploaded_file)
         uploaded_file.seek(0)
