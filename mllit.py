@@ -269,15 +269,6 @@ def main():
       
         df = pd.read_csv(uploaded_file)
         uploaded_file.seek(0)
-        st.write(df)
-
-     else:
-        st.info(
-            f"""
-                👆 Upload a .csv file first. Sample to try: [biostats.csv](https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv)
-                """
-        )
-
     
     df, data, drop_list, filename, rows, columns = upload_different_data(uploaded_file)
     
