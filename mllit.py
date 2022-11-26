@@ -26,7 +26,7 @@ def XGB_train_metrics(df, params_set):
     X = scaler.fit_transform(dfx)
     y = df.iloc[:, -1]
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
-  
+ 
     
     model_xgb = XGBClassifier(max_depth=params_set[0], eta=params_set[1], min_child_weight=params_set[2],
                               subsample=params_set[3], colsample_bylevel=params_set[4], colsample_bytree=params_set[5])
@@ -43,6 +43,220 @@ def XGB_train_metrics(df, params_set):
     recall_xgb = recall_score(y_test, y_pred)
     precision_xgb = precision_score(y_test, y_pred)
     return accuracy_xgb, f1_xgb, roc_auc_xgb, recall_xgb, precision_xgb, model_xgb
+  
+def upload_different_data(uploaded_file):
+    df = pd.read_csv(uploaded_file, low_memory=False)
+    rows = df.shape[0]
+    columns = df.shape[1]
+    
+    # Drop rows with all Null
+    df = df.fillna(0)
+    df.time = [datetime.datetime.strptime(
+        x, '%m/%d/%Y %H:%M') for x in df.time]
+    data, drop_list = data_preprocessing(df)
+    return df, data, drop_list, 'Uploaded file', rows, columns
+
+  
+def feature_summary(data):
+    print('DataFrame shape')
+    print('rows:', data.shape[0])
+    print('cols:', data.shape[1])
+    col_list = ['Null', 'Unique_Count', 'Data_type',
+                'Max/Min', 'Mean', 'Std', 'Skewness', 'Sample_values']
+    df = pd.DataFrame(index=data.columns, columns=col_list)
+    df['Null'] = list([len(data[col][data[col].isnull()])
+                       for i, col in enumerate(data.columns)])
+    df['Unique_Count'] = list([len(data[col].unique())
+                               for i, col in enumerate(data.columns)])
+    df['Data_type'] = list(
+        [data[col].dtype for i, col in enumerate(data.columns)])
+    for i, col in enumerate(data.columns):
+        if 'float' in str(data[col].dtype) or 'int' in str(data[col].dtype):
+            df.at[col, 'Max/Min'] = str(round(data[col].max(), 2)) + \
+                '/' + str(round(data[col].min(), 2))
+            df.at[col, 'Mean'] = data[col].mean()
+            df.at[col, 'Std'] = data[col].std()
+            df.at[col, 'Skewness'] = data[col].skew()
+        df.at[col, 'Sample_values'] = list(data[col].unique())
+
+    return(df.fillna('-'))
+  
+##скачивание пердикшн 
+def prediction_downloader(data):
+    st.write('')
+    st.subheader('Want to download the prediction results?')
+    csv = data.to_csv(index=False)
+    # some strings <-> bytes conversions necessary here
+    b64 = base64.b64encode(csv.encode()).decode()
+    href = f'<a href="data:file/csv;base64,{b64}">Download CSV File</a> (right-click and save as &lt;some_name&gt;.csv)'
+    st.markdown(href, unsafe_allow_html=True)
+    
+  
+  
+def home_page_builder(df, data, rows, columns):
+    st.title("Streamlit Demo")
+    st.write('')
+    st.write('')
+    st.subheader('INTRODUCTION')
+    st.write('')
+    st.write(
+        'Using machine learning algorithms to predict approval status of application')
+    st.write('')
+    st.write('')
+
+   
+    # Insert Check-Box to show the snippet of the data.
+    if st.checkbox('Show Data'):
+        st.subheader("Raw data")
+        st.write(
+            f'Input dataset includes **{rows}** rows and **{columns}** columns')
+        st.write(df.head())
+    
+        st.write(data.head())
+
+    # show data visulization
+    if st.checkbox('Show Visualization'):
+        fig = px.histogram(df.iloc[:, -1], x='target class',
+                           title='Distribution of Target Variable "')
+        st.plotly_chart(fig)
+        st.write('We can see Approved is about three times of Decliened, which may bring an imbalanced issue for prediction - we will deal with this issue during modeling.')
+        st.write('-'*60)
+      
+      ##второй рисунок подряд 
+      ## fig = px.histogram(df.time, x='time',
+       ##                    title='Distribution of Date Time')
+       ## st.plotly_chart(fig)
+       ## st.write(
+       ##     'The distribution of date time, we can see most of the data are from recent two months.')
+       ## st.write('-'*60)
+
+    # Show feature summary
+    if st.checkbox('Show Feature Summary'):
+        st.write('Raw data after dropping rows that have NULL for every column; ')
+        st.write('Also converted column "time" to datetime format')
+        st.write(feature_summary(df))
+        st.write('For each columns in our original dataset, we can see the statistics summary (Null Value Count, Unique Value Count, Data Type, etc.)')
+
+
+        
+       
+
+
+def xgb_page_builder(data):
+    st.sidebar.header('Hyper Parameters')
+    st.sidebar.markdown('You can tune the hyper parameters by siding')
+    max_depth = st.sidebar.slider('Select max_depth (default = 30)', 3, 30, 30)
+    eta = st.sidebar.slider(
+        'Select learning rate (divided by 10) (default = 0.1)', 0.01, 1.0, 1.0)
+    min_child_weight = st.sidebar.slider(
+        'Select min_child_weight (default = 0.3)', 0.1, 3.0, 0.3)
+    subsample = st.sidebar.slider(
+        'Select subsample (default = 0.75)', 0.5, 1.0, 0.75)
+    colsample_bylevel = st.sidebar.slider(
+        'Select colsample_bylevel (default = 0.5)', 0.5, 1.0, 0.5)
+    colsample_bytree = st.sidebar.slider(
+        'Select colsample_bytree (default = 1.0)', 0.5, 1.0, 1.0)
+    params_set = [max_depth, 0.1*eta, min_child_weight,
+                  subsample, colsample_bylevel, colsample_bytree]
+
+    start_time = datetime.datetime.now()
+    accuracy_xgb, f1_xgb, roc_auc_xgb, recall_xgb, precision_xgb, model_xgb = XGB_train_metrics(
+        data, params_set)
+    st.subheader('Model Introduction')
+    st.write('')
+    st.write('XGBoost - e**X**treme **G**radient **B**oosting, is an implementation of gradient boosted **decision trees** designed for speed and performance, which has recently been dominating applied machine learning. We recommend you choose this model to do the prediction.')
+    st.write('')
+    st.subheader('XGB metrics on testing dataset')
+    st.write('')
+    st.write('')
+    st.write('')
+    st.markdown("We separated the dataset to training and testing dataset, using training data to train our model then do the prediction on testing dataset, here's XGB prediction performance: ")
+    st.write('')
+    st.write(
+        f'Running time: {(datetime.datetime.now() - start_time).seconds} s')
+    st.table(pd.DataFrame(data=[round(accuracy_xgb * 100.0, 2), round(precision_xgb * 100.0, 2), round(recall_xgb*100, 2), round(roc_auc_xgb*100, 2), round(f1_xgb*100, 2)],
+                          index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)', 'ROC_AUC', 'F1'], columns=['%']))
+    st.subheader('Feature Importance:')
+
+    # Plot feature importance
+    df_feature = pd.DataFrame.from_dict(
+        model_xgb.get_booster().get_fscore(), orient='index')
+    df_feature.columns = ['Feature Importance']
+    feature_importance = df_feature.sort_values(
+        by='Feature Importance', ascending=False).T
+    fig = px.bar(feature_importance, x=feature_importance.columns,
+                 y=feature_importance.T)
+    fig.update_xaxes(tickangle=45, title_text='Features')
+    fig.update_yaxes(title_text='Feature Importance')
+    st.plotly_chart(fig)
+    return model_xgb
+ 
+
+def xgb_predictor(model_xgb, rows, columns, df, drop_list):
+    ##uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+    st.text('This process probably takes few seconds...')
+    st.write('Note: Currently, the CSV file should have **exactly the same** format with **training dataset**:', df.head(2))
+    st.write(
+        f'Training dataset includes **{rows}** rows and **{columns}** columns')
+    st.write('')
+
+    if uploaded_file:
+        data = pd.read_csv(uploaded_file, low_memory=False)
+        st.write('-'*80)
+        st.write('Uploaded data:', data.head(30))
+        st.write(
+            f'Uploaded data includes **{data.shape[0]}** rows and **{data.shape[1]}** columns')
+        start_time = datetime.datetime.now()
+        data = data.fillna(0)
+        data2 = data.copy()
+        data.time = [datetime.datetime.strptime(
+            x, '%m/%d/%Y %H:%M') for x in data.time]
+        prediction = model_xgb.predict(X2)
+        prediction_time = (datetime.datetime.now() - start_time).seconds
+        data2['status'] = ['Approved' if i ==
+                          0 else 'Declined' for i in prediction]
+        
+        st.write('')
+        st.write('-'*80)
+        st.write('Prediction:')
+        st.write(data.head(30))
+        st.text(f'Running time: {prediction_time} s')
+        st.write('')
+
+        accuracy_pending = accuracy_score(data2.status, prediction)
+        f1_pending = f1_score(data2.status, prediction)
+        roc_auc_pending = roc_auc_score(data2.status, prediction)
+        recall_pending = recall_score(data2.status, prediction)
+        precision_pending = precision_score(data2.status, prediction)
+        st.write('Metrics on uploaded data:')
+        st.text("Note: This is only temporary since new data won't have labels")
+        st.write('Accuracy:', round(100*accuracy_pending, 2), '%')
+        st.write('Precision:', round(100*precision_pending, 2), '%')
+        st.write('Recall:', round(100*recall_pending, 2), '%')
+        st.write('ROC AUC:', round(100*roc_auc_pending, 2), '%')
+        st.write('F1:', round(100*f1_pending, 2), '%')
+
+        # Download prediction as a CSV file
+        prediction_downloader(data)
+        
+     
+def main():
+    """Streamlit demo web app"""
+
+    st.sidebar.title('Menu')
+    choose_model = st.sidebar.selectbox("Choose the page or model", [
+                                        "Home",  "XGB"])
+    df, data, drop_list, filename, rows, columns = upload_different_data(
+                uploaded_file)
+    
+    if choose_model == "Home":
+        home_page_builder(df, data, rows, columns)
+    if choose_model == "XGB":
+        model_xgb = xgb_page_builder(data)
+        if(st.checkbox("Want to Use this model to predict on a new dataset?")):
+            xgb_predictor(model_xgb, rows, columns, df, drop_list)
+ if __name__ == "__main__":
+    main()
 
 
 
