@@ -78,7 +78,13 @@ def XGB_train_metrics(df, params_set):
     recall_xgb = recall_score(y_test, y_pred,average='micro')
     precision_xgb = precision_score(y_test, y_pred,average='micro')
     return accuracy_xgb, f1_xgb,recall_xgb, precision_xgb, model_xgb ##roc_auc_xgb, 
-    
+ 
+
+def prediction(sepal_length, sepal_width, petal_length, petal_width):  
+   
+    prediction =  model_xgb.predict(
+        [[sepal_length, sepal_width, petal_length, petal_width]])
+
  
 
   
@@ -218,11 +224,6 @@ def xgb_page_builder(data):
 
 
 
-
-
-
-
-    
 def xgb_predictor(model_xgb2, rows, columns, data):
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     st.text('This process probably takes few seconds...')
@@ -247,8 +248,8 @@ def xgb_predictor(model_xgb2, rows, columns, data):
         ##prediction_time = (datetime.datetime.now() - start_time).seconds
         scaler = MinMaxScaler()  
         X = scaler.fit_transform( data )
-        data['status'] =model_xgb2.predict(X)
-
+        ##data['status'] =model_xgb2.predict(X)
+        data['status'] =prediction(X)
         
         st.write('')
         st.write('-'*80)
