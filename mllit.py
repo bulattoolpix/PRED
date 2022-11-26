@@ -219,14 +219,14 @@ def xgb_predictor(model_xgb, rows, columns, df):
         st.write('Uploaded data:', data.head(30))
         st.write(
             f'Uploaded data includes **{data.shape[0]}** rows and **{data.shape[1]}** columns')
-        start_time = datetime.datetime.now()
-        data = data.dropna(axis=0, how='all')
+        ##start_time = datetime.datetime.now()
+        ##data = data.dropna(axis=0, how='all')
         
-        data2 = data.copy()
-        X = data ##.drop(columns=['status'])
+        ##data2 = data.copy()
+        ##X = data ##.drop(columns=['status'])
         ##prediction = model_xgb.predict(X)
         ##prediction_time = (datetime.datetime.now() - start_time).seconds
-        data['status'] =model_xgb.predict(X)
+        data['status'] =model_xgb.predict(data)
         
 
         
