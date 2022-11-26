@@ -32,8 +32,6 @@ def upload_different_data(uploaded_file):
     
     # Drop rows with all Null
     df = df.fillna(0)
-    df.time = [datetime.datetime.strptime(
-        x, '%m/%d/%Y %H:%M') for x in df.time]
     data, drop_list = data_preprocessing(df)
     return df, data, drop_list, 'Uploaded file', rows, columns
     
