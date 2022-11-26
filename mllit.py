@@ -20,6 +20,22 @@ from sklearn.model_selection import train_test_split
 ##st.cache(allow_output_mutation=True)
 @st.cache
 
+ 
+def upload_different_data(uploaded_file):
+    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+    df = pd.read_csv(uploaded_file, low_memory=False)
+    rows = df.shape[0]
+    columns = df.shape[1]
+    
+    # Drop rows with all Null
+    df = df.fillna(0)
+    df.time = [datetime.datetime.strptime(
+        x, '%m/%d/%Y %H:%M') for x in df.time]
+    data, drop_list = data_preprocessing(df)
+    return df, data, drop_list, 'Uploaded file', rows, columns
+    
+
+
 def XGB_train_metrics(df, params_set):
     scaler = MinMaxScaler()  
     dfx = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
@@ -43,18 +59,7 @@ def XGB_train_metrics(df, params_set):
     recall_xgb = recall_score(y_test, y_pred)
     precision_xgb = precision_score(y_test, y_pred)
     return accuracy_xgb, f1_xgb, roc_auc_xgb, recall_xgb, precision_xgb, model_xgb
-  
-def upload_different_data(uploaded_file):
-    df = pd.read_csv(uploaded_file, low_memory=False)
-    rows = df.shape[0]
-    columns = df.shape[1]
-    
-    # Drop rows with all Null
-    df = df.fillna(0)
-    df.time = [datetime.datetime.strptime(
-        x, '%m/%d/%Y %H:%M') for x in df.time]
-    data, drop_list = data_preprocessing(df)
-    return df, data, drop_list, 'Uploaded file', rows, columns
+ 
 
   
 def feature_summary(data):
@@ -246,8 +251,7 @@ def main():
     st.sidebar.title('Menu')
     choose_model = st.sidebar.selectbox("Choose the page or model", [
                                         "Home",  "XGB"])
-    df, data, drop_list, filename, rows, columns = upload_different_data(
-                uploaded_file)
+    df, data, drop_list, filename, rows, columns = upload_different_data(uploaded_file)
     
     if choose_model == "Home":
         home_page_builder(df, data, rows, columns)
