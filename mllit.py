@@ -223,7 +223,7 @@ def xgb_page_builder(data):
 
 
     
-def xgb_predictor(model_xgb2, rows, columns, df):
+def xgb_predictor():
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     st.text('This process probably takes few seconds...')
     st.write('Note: Currently, the CSV file should have **exactly the same** format with **training dataset**:', df.head(2))
