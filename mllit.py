@@ -254,6 +254,11 @@ def main():
 
 
  
+
+    st.sidebar.title('Menu')
+    choose_model = st.sidebar.selectbox("Choose the page or model", [
+                                        "Home",  "XGB"])
+    
 uploaded_file = st.file_uploader(
         "",
         key="1",
@@ -274,10 +279,6 @@ else:
         )
 
     
-
-    st.sidebar.title('Menu')
-    choose_model = st.sidebar.selectbox("Choose the page or model", [
-                                        "Home",  "XGB"])
     df, data, drop_list, filename, rows, columns = upload_different_data(uploaded_file)
     
     if choose_model == "Home":
