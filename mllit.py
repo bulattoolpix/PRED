@@ -255,7 +255,12 @@ def main():
         model_xgb = xgb_page_builder(data)
         if(st.checkbox("Want to Use this model to predict on a new dataset?")):
             xgb_predictor(model_xgb, rows, columns, df, drop_list)
- if __name__ == "__main__":
+
+            
+            
+            
+            
+if __name__ == "__main__":
     main()
 
 
