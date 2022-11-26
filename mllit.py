@@ -20,6 +20,25 @@ from sklearn.model_selection import train_test_split
 ##st.cache(allow_output_mutation=True)
 @st.cache
 
+  
+uploaded_file = st.file_uploader(
+        "",
+        key="1",
+     
+    )
+
+if uploaded_file is not None:
+      
+        df = pd.read_csv(uploaded_file)
+        uploaded_file.seek(0)
+        st.write(df)
+
+else:
+        st.info(
+            f"""
+                👆 Upload a .csv file first. Sample to try: [biostats.csv](https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv)
+                """
+        )
  
 def upload_different_data(uploaded_file):
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
