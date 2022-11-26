@@ -234,7 +234,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
         ##data2 ['status'] = [prediction]
         datas['status'] = ['setosa' if i ==
                           0 'versa' if i ==
-                          0 else 'virgi' for i in prediction]
+                          1 else 'virgi' for i in prediction]
         
         st.write('')
         st.write('-'*80)
@@ -256,7 +256,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
         ##st.write('ROC AUC:', round(100*roc_auc_pending, 2), '%')
         st.write('F1:', round(100*f1_pending, 2), '%')
         # Download prediction as a CSV file
-        prediction_downloader( data2 )
+        prediction_downloader( datas )
          
           
           # Plot feature importance
