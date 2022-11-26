@@ -227,14 +227,12 @@ def xgb_predictor(model_xgb, rows, columns, df):
         scaler = MinMaxScaler()  
         ##data2  = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается не нужно когда предиктор ? потому что идет без колонки таргет 
         X3 = scaler.fit_transform(datas)
-        y = df.iloc[:, -1]
+        ##y = df.iloc[:, -1]
         
         prediction = model_xgb.predict(X3)                                 ####prediction
         prediction_time = (datetime.datetime.now() - start_time).seconds
         ##data2 ['status'] = [prediction]
-        datas['status'] = ['setosa' if i ==
-                          0 'versa' if i ==
-                          1 else 'virgi' for i in prediction]
+
         
         st.write('')
         st.write('-'*80)
