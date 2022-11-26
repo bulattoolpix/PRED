@@ -72,7 +72,7 @@ def XGB_train_metrics(df, params_set):
     # Evaluate predictions
     accuracy_xgb = accuracy_score(y_test, y_pred)
     f1_xgb = f1_score(y_test, y_pred,average='micro')
-    roc_auc_xgb = roc_auc_score(y_test, y_pred,multi_class='ovr')
+    ##roc_auc_xgb = roc_auc_score(y_test, y_pred,multi_class='ovr')
     recall_xgb = recall_score(y_test, y_pred,average='micro')
     precision_xgb = precision_score(y_test, y_pred,average='micro')
     return accuracy_xgb, f1_xgb, roc_auc_xgb, recall_xgb, precision_xgb, model_xgb
@@ -196,7 +196,7 @@ def xgb_page_builder(data):
     st.write('')
     st.write(
         f'Running time: {(datetime.datetime.now() - start_time).seconds} s')
-    st.table(pd.DataFrame(data=[round(accuracy_xgb * 100.0, 2), round(precision_xgb * 100.0, 2), round(recall_xgb*100, 2), round(roc_auc_xgb*100, 2), round(f1_xgb*100, 2)],
+    st.table(pd.DataFrame(data=[round(accuracy_xgb * 100.0, 2), round(precision_xgb * 100.0, 2), round(recall_xgb*100, 2),  round(f1_xgb*100, 2)], ##,round(roc_auc_xgb*100, 2),],
                           index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)', 'ROC_AUC', 'F1'], columns=['%']))
     st.subheader('Feature Importance:')
 
@@ -248,7 +248,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
 
         accuracy_pending = accuracy_score(data2.status, prediction)
         f1_pending = f1_score(data2.status, prediction)
-        roc_auc_pending = roc_auc_score(data2.status, prediction)
+        ##roc_auc_pending = roc_auc_score(data2.status, prediction)
         recall_pending = recall_score(data2.status, prediction)
         precision_pending = precision_score(data2.status, prediction)
         st.write('Metrics on uploaded data:')
@@ -256,7 +256,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
         st.write('Accuracy:', round(100*accuracy_pending, 2), '%')
         st.write('Precision:', round(100*precision_pending, 2), '%')
         st.write('Recall:', round(100*recall_pending, 2), '%')
-        st.write('ROC AUC:', round(100*roc_auc_pending, 2), '%')
+        ##st.write('ROC AUC:', round(100*roc_auc_pending, 2), '%')
         st.write('F1:', round(100*f1_pending, 2), '%')
         # Download prediction as a CSV file
         prediction_downloader(data)
