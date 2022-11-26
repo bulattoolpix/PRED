@@ -219,7 +219,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
         st.write('-'*80)
         st.write('Uploaded data:', data1.head(30))
         st.write(
-            f'Uploaded data includes **{data.shape[0]}** rows and **{data.shape[1]}** columns')
+            f'Uploaded data includes **{data1.shape[0]}** rows and **{data1.shape[1]}** columns')
         start_time = datetime.datetime.now()
         data1 = data1.fillna(0)
         ##data=df ##,  = data_preprocessing(df)
