@@ -251,14 +251,9 @@ def xgb_predictor(model_xgb, rows, columns, df, drop_list):
 def main():
     """Streamlit demo web app"""
     
-st.write(
-    """
-# 📊 A/B Testing App
-Upload your experiment results to see the significance of your A/B test.
-"""
-)
 
-    
+
+ 
 uploaded_file = st.file_uploader(
         "",
         key="1",
@@ -277,6 +272,7 @@ else:
                 👆 Upload a .csv file first. Sample to try: [biostats.csv](https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv)
                 """
         )
+
     
 
     st.sidebar.title('Menu')
