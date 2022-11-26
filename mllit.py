@@ -222,8 +222,7 @@ def xgb_predictor(model_xgb, rows, columns, df):
         start_time = datetime.datetime.now()
         data = data.fillna(0)
         data2 = data.copy()
-        data.time = [datetime.datetime.strptime(
-            x, '%m/%d/%Y %H:%M') for x in data.time]
+   
         prediction = model_xgb.predict(X2)
         prediction_time = (datetime.datetime.now() - start_time).seconds
         data2['status'] = [prediction]
