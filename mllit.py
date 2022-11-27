@@ -80,23 +80,10 @@ def XGB_train_metrics(df,params_set):
  
 
 
-def XGB_train_metrics2(df,data2,params_set):
-    scaler = MinMaxScaler()  
-    dfx1 = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
-    X1= scaler.fit_transform(dfx1)
-    Xzero= scaler.fit_transform(ddata2)
-    y1 = df.iloc[:, -1]
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
- 
-    
-    model_xgb = XGBClassifier(max_depth=params_set[0], eta=params_set[1], min_child_weight=params_set[2],
-                              subsample=params_set[3], colsample_bylevel=params_set[4], colsample_bytree=params_set[5])
-    # model = XGBClassifier()
-    model_xgb.fit(X_train, y_train)
 
-    # Make predictions for test data
-    data2['species'] =  model_xgb.predict(Xzero)
-    return  data2
+
+
+
 
 
 
@@ -197,7 +184,7 @@ def XGB_train_metrics2(df,data2,params_set):
     scaler = MinMaxScaler()  
     dfx1 = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
     X1= scaler.fit_transform(dfx1)
-    Xzero= scaler.fit_transform(ddata2)
+    Xzero= scaler.fit_transform(data2)
     y1 = df.iloc[:, -1]
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
  
