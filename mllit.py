@@ -62,14 +62,14 @@ def XGB_train_metrics(df, params_set):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
  
     
-    model_xgb = XGBClassifier(max_depth=params_set[0], eta=params_set[1], min_child_weight=params_set[2],
+    model_xg = XGBClassifier(max_depth=params_set[0], eta=params_set[1], min_child_weight=params_set[2],
                               subsample=params_set[3], colsample_bylevel=params_set[4], colsample_bytree=params_set[5])
     # model = XGBClassifier()
-    model_xgb.fit(X_train, y_train)
-    model_xgb2=model_xgb
+    model_xg.fit(X_train, y_train)
+    model_xgb2=model_xg
 
     # Make predictions for test data
-    y_pred = model_xgb.predict(X_test)
+    y_pred = model_xg.predict(X_test)
 
     # Evaluate predictions
     accuracy_xgb = accuracy_score(y_test, y_pred)
@@ -77,7 +77,7 @@ def XGB_train_metrics(df, params_set):
     ##roc_auc_xgb = roc_auc_score(y_test, y_pred,multi_class='ovr')
     recall_xgb = recall_score(y_test, y_pred,average='micro')
     precision_xgb = precision_score(y_test, y_pred,average='micro')
-    return accuracy_xgb, f1_xgb,recall_xgb, precision_xgb, model_xgb ##roc_auc_xgb, 
+    return accuracy_xgb, f1_xgb,recall_xgb, precision_xgb, model_xg ##roc_auc_xgb, 
  
 
 
@@ -323,11 +323,7 @@ def main():
              st.write('Uploaded data:', data.head(30))
              scaler = MinMaxScaler() 
              X = scaler.fit_transform( data )
-             model_xgb2 = XGBClassifier(max_depth=params_set[0], eta=params_set[1], min_child_weight=params_set[2],
-                              subsample=params_set[3], colsample_bylevel=params_set[4], colsample_bytree=params_set[5])
-    # model = XGBClassifier()
-             model_xgb2.fit(X_train, y_train)
-             data['status'] =model_xgb2.predict(X)
+             data['status'] = model_xg.predict(X)
             
         
 
