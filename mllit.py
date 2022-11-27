@@ -347,7 +347,7 @@ def main():
               feature_importance
         
               sorted_idx = pd.DataFrame(model_xgb3.feature_importances_)
-              sorted_idx .columns = ['Feature Importance']
+              sorted_idx .columns =dfx1.columns
               st.bar_chart( sorted_idx)
 
               ##st.bar_chart(model_xgb3.feature_importances_.rename_axis('unique_values'), label=data.columns)
