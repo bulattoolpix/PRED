@@ -325,8 +325,22 @@ def main():
         home_page_builder(df, data, rows, columns)
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data,data2  )
-       ## if(st.checkbox("Want to Use this model to predict on a new dataset?")):
+        if(st.checkbox("Want to Use this model to predict on a new dataset?")):
            ##prediction_downloader(data2) ###загрузка
+            scaler = MinMaxScaler()  
+             dfx1 = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
+             X1= scaler.fit_transform(dfx1)
+             y1 = df.iloc[:, -1]
+             X_train1, X_test1, y_train1, y_test1 = train_test_split(X1, y1, test_size = 0.25, random_state = 0)
+ 
+             model_xgb3 = XGBClassifier()
+    # model = XGBClassifier()
+             model_xgb3.fit(X_train1, y_train1)
+    
+             df_feature = pd.DataFrame.from_dict(model_xgb3.get_booster().get_fscore(), orient='index')
+             df_feature.columns = ['Feature Importance']
+    
+             df_feature.sort_values(by='Feature Importance', ascending=False).T
 
             
         
