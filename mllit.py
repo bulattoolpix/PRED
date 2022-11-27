@@ -256,7 +256,7 @@ def xgb_page_builder(data,data2 ):
     model_xgb = XGB_train_metrics(data,params_set)
     
     model_xgb2= xgb_predictor(data,data2,params_set )   ####прогноз новой выборки на основе выставленных гипермарметров 
-    featureimp (data)
+    ##featureimp (data)
     ##df_feature = pd.DataFrame.from_dict(model_xgb2.get_booster().get_fscore(), orient='index')
     
     st.subheader('Model Introduction')
