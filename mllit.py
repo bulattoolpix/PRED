@@ -255,7 +255,7 @@ def xgb_page_builder(data,data2):
     ##st.write('ROC AUC:', round(100*roc_auc_pending, 2), '%')
     st.write('F1:', round(100*f1_pending, 2), '%')
     # Download prediction as a CSV file
-     prediction_downloader( datas )
+
          
         
         
