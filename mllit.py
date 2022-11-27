@@ -209,11 +209,11 @@ def xgb_predictor(df,data2,params_set ):
     return data2, model_xgb2
 
 ## не работает
-def featureimp (df):
+def featureimp (data):
     scaler = MinMaxScaler()  
-    dfx1 = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
+    dfx1 = data.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
     X1= scaler.fit_transform(dfx1)
-    y1 = df.iloc[:, -1]
+    y1 = data.iloc[:, -1]
     X_train1, X_test1, y_train1, y_test1 = train_test_split(X1, y1, test_size = 0.25, random_state = 0)
  
     model_xgb3 = XGBClassifier()
@@ -228,7 +228,7 @@ def featureimp (df):
     ##fig.update_xaxes(tickangle=45, title_text='Features')
     ##fig.update_yaxes(title_text='Feature Importance')
     ##st.plotly_chart(fig)
-    return  feature_importance
+    return  feature_importance,df_feature
        
 
 
