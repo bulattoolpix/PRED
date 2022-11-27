@@ -349,7 +349,7 @@ def main():
               list(dfx1)
               dfx1.columns.values.tolist()
               
-              sorted_idx = pd.DataFrame(model_xgb3.feature_importances_,columns= dfx1.columns.values.tolist())
+              sorted_idx = pd.DataFrame(model_xgb3.feature_importances_)
            
               ##sorted_idx .columns =dfx1.columns
               st.bar_chart( sorted_idx)
