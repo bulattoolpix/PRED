@@ -186,13 +186,13 @@ def XGB_train_metrics2(df,data2,params_set):
     X1= scaler.fit_transform(dfx1)
     Xzero= scaler.fit_transform(data2)
     y1 = df.iloc[:, -1]
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+    X_train1, X_test1, y_train1, y_test1 = train_test_split(X1, y1, test_size = 0.25, random_state = 0)
  
     
     model_xgb2 = XGBClassifier(max_depth=params_set[0], eta=params_set[1], min_child_weight=params_set[2],
                               subsample=params_set[3], colsample_bylevel=params_set[4], colsample_bytree=params_set[5])
     # model = XGBClassifier()
-    model_xgb2.fit(X_train, y_train)
+    model_xgb2.fit(X_train1, y_train1)
 
     # Make predictions for test data
     data2['species'] =  model_xgb2.predict(Xzero)
