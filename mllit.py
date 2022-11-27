@@ -180,7 +180,7 @@ def home_page_builder(df, data, rows, columns):
   
   
 
-def xgb_predictor(df,data2,params_set):
+def xgb_predictor(df,data2,params_set,feature_importance ):
     scaler = MinMaxScaler()  
     dfx1 = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
     X1= scaler.fit_transform(dfx1)
@@ -193,14 +193,29 @@ def xgb_predictor(df,data2,params_set):
                               subsample=params_set[3], colsample_bylevel=params_set[4], colsample_bytree=params_set[5])
     # model = XGBClassifier()
     model_xgb2.fit(X_train1, y_train1)
+    
 
     # Make predictions for test data
     data2['target'] =  model_xgb2.predict(Xzero)
-    return  data2
+    
+    df_feature = pd.DataFrame.from_dict(
+       model_xgb2.get_booster().get_fscore(), orient='index')
+    df_feature.columns = ['Feature Importance']
+    
+    feature_importance = df_feature.sort_values(
+        by='Feature Importance', ascending=False).T
+    fig = px.bar(feature_importance, x=feature_importance.columns,
+                 y=feature_importance.T)
+    fig.update_xaxes(tickangle=45, title_text='Features')
+    fig.update_yaxes(title_text='Feature Importance')
+    st.plotly_chart(fig)
+    return data2, model_xgb2,feature_importance 
+
+
        
 
 
-def xgb_page_builder(data,data2):
+def xgb_page_builder(data,data2,feature_importance ):
     st.sidebar.header('Hyper Parameters')
     st.sidebar.markdown('You can tune the hyper parameters by siding')
     max_depth = st.sidebar.slider('Select max_depth (default = 30)', 3, 30, 30)
@@ -243,8 +258,8 @@ def xgb_page_builder(data,data2):
     st.write('Predicted target values for unknown target label ',data2)
    
     # Download prediction as a CSV file
-    feature_summary(data)
-    
+   
+    feature_importance 
           # Plot feature importance
   
   
