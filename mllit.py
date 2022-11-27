@@ -314,8 +314,8 @@ def main():
         home_page_builder(df, data, rows, columns)
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data,data2)
-        if(st.checkbox("Want to Use this model to predict on a new dataset?")):
-           prediction_downloader(data2) ###загрузка
+       ## if(st.checkbox("Want to Use this model to predict on a new dataset?")):
+           ##prediction_downloader(data2) ###загрузка
 
             
         
