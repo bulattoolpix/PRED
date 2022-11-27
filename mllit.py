@@ -349,9 +349,9 @@ def main():
              uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
              data = pd.read_csv(uploaded_file, low_memory=False)
              st.write('Uploaded data:', data.head(30))
-              scaler = MinMaxScaler()  
-              X = scaler.fit_transform( data )
-              st.write(X)
+             scaler = MinMaxScaler()  
+             X = scaler.fit_transform( data )
+             st.write(X)
                   ##data['status'] =model_xgb2.predict(X)
                   ##data['status'] = model_xgb(X)    
         
