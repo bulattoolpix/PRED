@@ -180,7 +180,7 @@ def home_page_builder(df, data, rows, columns):
   
   
 
-def xgb_predictor(df,data2,params_set,feature_importance ):
+def xgb_predictor(df,data2,params_set ):
     scaler = MinMaxScaler()  
     dfx1 = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
     X1= scaler.fit_transform(dfx1)
