@@ -54,7 +54,7 @@ def upload_different_data(uploaded_file):
     
 
 
-def XGB_train_metrics(df, data2,V,params_set):
+def XGB_train_metrics(df,params_set):
     scaler = MinMaxScaler()  
     dfx = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
     X = scaler.fit_transform(dfx)
@@ -66,12 +66,9 @@ def XGB_train_metrics(df, data2,V,params_set):
                               subsample=params_set[3], colsample_bylevel=params_set[4], colsample_bytree=params_set[5])
     # model = XGBClassifier()
     model_xg.fit(X_train, y_train)
-    model_xgb2=model_xg
 
     # Make predictions for test data
     y_pred = model_xg.predict(X_test)
-    
-    z_pred = model_xg.predict(V)
 
     # Evaluate predictions
     accuracy_xgb = accuracy_score(y_test, y_pred)
@@ -82,6 +79,24 @@ def XGB_train_metrics(df, data2,V,params_set):
     return accuracy_xgb, f1_xgb,recall_xgb, precision_xgb, model_xg, z_pred ##roc_auc_xgb, 
  
 
+
+def XGB_train_metrics2(df,data2,params_set):
+    scaler = MinMaxScaler()  
+    dfx1 = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
+    X1= scaler.fit_transform(dfx1)
+    Xzero= scaler.fit_transform(ddata2)
+    y1 = df.iloc[:, -1]
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+ 
+    
+    model_xgb = XGBClassifier(max_depth=params_set[0], eta=params_set[1], min_child_weight=params_set[2],
+                              subsample=params_set[3], colsample_bylevel=params_set[4], colsample_bytree=params_set[5])
+    # model = XGBClassifier()
+    model_xgb.fit(X_train, y_train)
+
+    # Make predictions for test data
+    data2['species'] =  model_xgb.predict(Xzero)
+    return  data2
 
 
 
@@ -174,7 +189,27 @@ def home_page_builder(df, data, rows, columns):
         st.write('For each columns in our original dataset, we can see the statistics summary (Null Value Count, Unique Value Count, Data Type, etc.)')
 
 
-        
+  
+  
+  
+
+def XGB_train_metrics2(df,data2,params_set):
+    scaler = MinMaxScaler()  
+    dfx1 = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
+    X1= scaler.fit_transform(dfx1)
+    Xzero= scaler.fit_transform(ddata2)
+    y1 = df.iloc[:, -1]
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+ 
+    
+    model_xgb2 = XGBClassifier(max_depth=params_set[0], eta=params_set[1], min_child_weight=params_set[2],
+                              subsample=params_set[3], colsample_bylevel=params_set[4], colsample_bytree=params_set[5])
+    # model = XGBClassifier()
+    model_xgb2.fit(X_train, y_train)
+
+    # Make predictions for test data
+    data2['species'] =  model_xgb2.predict(Xzero)
+    return  data2
        
 
 
@@ -197,7 +232,12 @@ def xgb_page_builder(data,data2):
 
     start_time = datetime.datetime.now()
    ##roc_auc_xgb, 
-    accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb, z_pred = XGB_train_metrics(df, data2,V,params_set)
+    accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb = XGB_train_metrics(df,params_set)
+    
+    model_xgb = XGB_train_metrics(df,params_set)
+    
+    model_xgb2= XGB_train_metrics2(df,data2,params_set)
+      
     st.subheader('Model Introduction')
     st.write('',params_set)
     st.write('XGBoost - e**X**treme **G**radient **B**oosting, is an implementation of gradient boosted **decision trees** designed for speed and performance, which has recently been dominating applied machine learning. We recommend you choose this model to do the prediction.')
@@ -213,7 +253,7 @@ def xgb_page_builder(data,data2):
     st.table(pd.DataFrame(data=[round(accuracy_xgb * 100.0, 2), round(precision_xgb * 100.0, 2), round(recall_xgb*100, 2),  round(f1_xgb*100, 2)], ##,round(roc_auc_xgb*100, 2),],
                           index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)',  'F1'], columns=['%'])) ##'ROC_AUC',
     st.subheader('Feature Importance:')
-    st.write('',z_pred )
+    st.write('',data2)
     
     
     
