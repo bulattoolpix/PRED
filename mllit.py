@@ -114,10 +114,10 @@ def feature_summary(data):
     return(df.fillna('-'))
   
 ##скачивание пердикшн 
-def prediction_downloader(data):
+def prediction_downloader(data2):
     st.write('')
     st.subheader('Want to download the prediction results?')
-    csv = data.to_csv(index=False)
+    csv = data2.to_csv(index=False)
     # some strings <-> bytes conversions necessary here
     b64 = base64.b64encode(csv.encode()).decode()
     href = f'<a href="data:file/csv;base64,{b64}">Download CSV File</a> (right-click and save as &lt;some_name&gt;.csv)'
@@ -180,7 +180,7 @@ def home_page_builder(df, data, rows, columns):
   
   
 
-def XGB_train_metrics2(df,data2,params_set):
+def xgb_predictor(df,data2,params_set):
     scaler = MinMaxScaler()  
     dfx1 = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
     X1= scaler.fit_transform(dfx1)
@@ -223,7 +223,7 @@ def xgb_page_builder(data,data2):
     
     model_xgb = XGB_train_metrics(data,params_set)
     
-    model_xgb2= XGB_train_metrics2(data,data2,params_set)
+    model_xgb2= xgb_predictor(data,data2,params_set)   ####прогноз новой выборки на основе выставленных гипермарметров 
       
     st.subheader('Model Introduction')
     st.write('',params_set)
@@ -241,6 +241,7 @@ def xgb_page_builder(data,data2):
                           index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)',  'F1'], columns=['%'])) ##'ROC_AUC',
     st.subheader('Feature Importance:')
     st.write('Predicted target values for unknown target label ',data2)
+    prediction_downloader(data2) ###загрузка
     
     
     
@@ -261,33 +262,7 @@ def xgb_page_builder(data,data2):
 
 
 
-def xgb_predictor(model_xgb, rows, columns, data):
-    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
-    st.text('This process probably takes few seconds...')
-    st.write(
-        f'Training dataset includes **{rows}** rows and **{columns}** columns')
-    st.write('')
-    
 
-    if uploaded_file:
-        data = pd.read_csv(uploaded_file, low_memory=False)
-        st.write('Note: Currently, the CSV file should have **exactly the same** format with **training dataset**:',  data.head(2))
-        ##st.write('-'*80)
-        st.write('Uploaded data:', data.head(30))
-        st.write(
-            f'Uploaded data includes **{data.shape[0]}** rows and **{data.shape[1]}** columns')
-        ##start_time = datetime.datetime.now()
-        ##data = data.dropna(axis=0, how='all')
-        
-        ##data2 = data.copy()
-        ##X = data ##.drop(columns=['status'])
-        ##prediction = model_xgb.predict(X)
-        ##prediction_time = (datetime.datetime.now() - start_time).seconds
-        scaler = MinMaxScaler()  
-        X = scaler.fit_transform( data )
-        ##data['status'] =model_xgb2.predict(X)
-        data['status'] =prediction(X)
-        
         
         
         
