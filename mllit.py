@@ -209,7 +209,7 @@ def xgb_predictor(df,data2,params_set ):
     return data2, model_xgb2
 
 ## не работает
-def featureimp (df,df_feature):
+def featureimp (df):
     scaler = MinMaxScaler()  
     dfx1 = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
     X1= scaler.fit_transform(dfx1)
