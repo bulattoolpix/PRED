@@ -241,7 +241,7 @@ def xgb_page_builder(data,data2):
                           index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)',  'F1'], columns=['%'])) ##'ROC_AUC',
     st.subheader('Feature Importance:')
     st.write('Predicted target values for unknown target label ',data2)
-    st.prediction_downloader(data2) ###загрузка
+    prediction_downloader(data2) ###загрузка
     accuracy_pending = accuracy_score(data2.status, prediction)
     f1_pending = f1_score(data2.status, prediction)
     ##roc_auc_pending = roc_auc_score(data2.status, prediction)
@@ -255,6 +255,14 @@ def xgb_page_builder(data,data2):
     ##st.write('ROC AUC:', round(100*roc_auc_pending, 2), '%')
     st.write('F1:', round(100*f1_pending, 2), '%')
     # Download prediction as a CSV file
+    
+    
+    ##CSVButton = download_button(
+     ##   df,
+       ## "File.csv",
+        ##"Download to CSV",
+   ## )
+
 
          
         
