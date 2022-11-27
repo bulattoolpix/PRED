@@ -326,8 +326,27 @@ def main():
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data,data2  )
         if(st.checkbox("Want to Use this model to predict on a new dataset?")):
-           ##prediction_downloader(data2) ###загрузка
-            featureimp (df)
+           ##prediction_downloader(data2) ###загрузк
+##            featureimp (df)
+    scaler = MinMaxScaler()  
+    dfx1 = data.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
+    X1= scaler.fit_transform(dfx1)
+    y1 = data.iloc[:, -1]
+    X_train1, X_test1, y_train1, y_test1 = train_test_split(X1, y1, test_size = 0.25, random_state = 0)
+ 
+    model_xgb3 = XGBClassifier()
+    # model = XGBClassifier()
+    model_xgb3.fit(X_train1, y_train1)
+    
+    df_feature = pd.DataFrame.from_dict(model_xgb3.get_booster().get_fscore(), orient='index')
+    df_feature.columns = ['Feature Importance']
+    
+    feature_importance = df_feature.sort_values(by='Feature Importance', ascending=False).T
+    ##fig = px.bar(feature_importance, x=feature_importance.columns, y=feature_importance.T)
+    ##fig.update_xaxes(tickangle=45, title_text='Features')
+    ##fig.update_yaxes(title_text='Feature Importance')
+    ##st.plotly_chart(fig)
+    return  feature_importance,df_feature
 
             
         
