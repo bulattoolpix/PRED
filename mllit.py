@@ -344,8 +344,6 @@ def main():
               feature_importance=df_feature.sort_values(by='Feature Importance', ascending=False).T
               feature_importance
               fig = px.bar(feature_importance, x=feature_importance.columns, y=feature_importance.T)
-              fig.update_xaxes(tickangle=45, title_text='Features')
-              fig.update_yaxes(title_text='Feature Importance')
               st.plotly_chart(fig)
 
 
