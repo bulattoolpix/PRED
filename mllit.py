@@ -215,7 +215,7 @@ def xgb_predictor(df,data2,params_set,feature_importance ):
        
 
 
-def xgb_page_builder(data,data2,feature_importance ):
+def xgb_page_builder(data,data2):
     st.sidebar.header('Hyper Parameters')
     st.sidebar.markdown('You can tune the hyper parameters by siding')
     max_depth = st.sidebar.slider('Select max_depth (default = 30)', 3, 30, 30)
@@ -260,6 +260,7 @@ def xgb_page_builder(data,data2,feature_importance ):
     # Download prediction as a CSV file
    
     feature_importance 
+    return feature_importance,  model_xgb2
           # Plot feature importance
   
   
