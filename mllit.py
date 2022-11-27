@@ -212,7 +212,7 @@ def xgb_predictor(df,data2,params_set ):
        
 
 
-def xgb_page_builder(data,data2, feature_importance ):
+def xgb_page_builder(data,data2 ):
     st.sidebar.header('Hyper Parameters')
     st.sidebar.markdown('You can tune the hyper parameters by siding')
     max_depth = st.sidebar.slider('Select max_depth (default = 30)', 3, 30, 30)
@@ -302,7 +302,7 @@ def main():
     if choose_model == "Home":
         home_page_builder(df, data, rows, columns)
     if choose_model == "XGB":
-        model_xgb = xgb_page_builder(data,data2 , feature_importance )
+        model_xgb = xgb_page_builder(data,data2   )
        ## if(st.checkbox("Want to Use this model to predict on a new dataset?")):
            ##prediction_downloader(data2) ###загрузка
 
