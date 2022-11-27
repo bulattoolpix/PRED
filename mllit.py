@@ -279,7 +279,7 @@ def xgb_page_builder(data,data2 ):
     # Download prediction as a CSV file
    
    
-    return feature_importance,  model_xgb2
+    return   model_xgb2
           # Plot feature importance
   
   
