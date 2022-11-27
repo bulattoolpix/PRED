@@ -243,6 +243,7 @@ def xgb_page_builder(data,data2):
     st.write('Predicted target values for unknown target label ',data2)
     prediction_downloader(data2) ###загрузка
     # Download prediction as a CSV file
+    feature_summary(data)
     
     
     ##CSVButton = download_button(
@@ -314,12 +315,7 @@ def main():
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data,data2)
         if(st.checkbox("Want to Use this model to predict on a new dataset?")):
-             
-             model_xgs = XGBClassifier()
-               # model = XGBClassifier()
-             model_xgs.fit(X_train, y_train)
-  
-             data2['status'] = model_xgs.predict(V )
+
             
         
 
