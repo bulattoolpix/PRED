@@ -246,14 +246,7 @@ def xgb_page_builder(data,data2):
     feature_summary(data)
     
           # Plot feature importance
-    df_feature = pd.DataFrame.from_dict(model_xgb.get_booster().get_fscore(), orient='index')
-    df_feature.columns = ['Feature Importance']
-    feature_importance = df_feature.sort_values(by='Feature Importance', ascending=False).T
-    fig = px.bar(feature_importance, x=feature_importance.columns,y=feature_importance.T)
-    fig.update_xaxes(tickangle=45, title_text='Features')
-    fig.update_yaxes(title_text='Feature Importance')
-    st.plotly_chart(fig)
-    return model_xgb 
+  
   
   
   
