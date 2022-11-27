@@ -208,7 +208,7 @@ def xgb_predictor(df,data2,params_set ):
     ##st.plotly_chart(fig)
     return data2, model_xgb2
 
-
+## не работает
 def featureimp (df,df_feature):
     scaler = MinMaxScaler()  
     dfx1 = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
@@ -228,7 +228,7 @@ def featureimp (df,df_feature):
     ##fig.update_xaxes(tickangle=45, title_text='Features')
     ##fig.update_yaxes(title_text='Feature Importance')
     ##st.plotly_chart(fig)
-    return model_xgb3,df_feature
+    return  feature_importance
        
 
 
@@ -341,6 +341,9 @@ def main():
             df_feature.columns = ['Feature Importance']
     
             df_feature.sort_values(by='Feature Importance', ascending=False).T
+      
+      
+            featureimp (df,df_feature)
 
             
         
