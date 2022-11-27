@@ -342,7 +342,10 @@ def main():
               df_feature = pd.DataFrame.from_dict(model_xgb3.get_booster().get_fscore(), orient='index')
              ## df_feature.columns =dfx1.columns.values.tolist()
               df_feature.columns = ['Feature Importance']
+              df_feature.columns =dfx1.columns
               list(dfx1.columns)
+              df_feature
+              
 
 #Using list(df) to get the list of all Column Names
 
