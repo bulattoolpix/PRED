@@ -347,6 +347,7 @@ def main():
               feature_importance
               dfx1.columns
               list(dfx1)
+              dfx1.columns.to_array
               sorted_idx = pd.DataFrame(model_xgb3.feature_importances_,columns=list(dfx1.columns))
            
               ##sorted_idx .columns =dfx1.columns
