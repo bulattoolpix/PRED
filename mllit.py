@@ -245,23 +245,6 @@ def xgb_page_builder(data,data2):
     # Download prediction as a CSV file
     feature_summary(data)
     
-    
-    ##CSVButton = download_button(
-     ##   df,
-       ## "File.csv",
-        ##"Download to CSV",
-   ## )
-
-
-         
-        
-        
-    
-
-
-               
-        
-        
           # Plot feature importance
     df_feature = pd.DataFrame.from_dict(model_xgb.get_booster().get_fscore(), orient='index')
     df_feature.columns = ['Feature Importance']
