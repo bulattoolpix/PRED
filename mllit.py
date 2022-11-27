@@ -342,7 +342,7 @@ def main():
     if choose_model == "Home":
         home_page_builder(df, data, rows, columns)
     if choose_model == "XGB":
-        model_xgb = xgb_page_builder(data)
+        model_xgb = xgb_page_builder(data,data2)
         if(st.checkbox("Want to Use this model to predict on a new dataset?")):
              uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
              data = pd.read_csv(uploaded_file, low_memory=False)
