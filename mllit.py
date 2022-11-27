@@ -241,7 +241,7 @@ def xgb_page_builder(data,data2):
                           index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)',  'F1'], columns=['%'])) ##'ROC_AUC',
     st.subheader('Feature Importance:')
     st.write('Predicted target values for unknown target label ',data2)
-    prediction_downloader(data2) ###загрузка
+   
     # Download prediction as a CSV file
     feature_summary(data)
     
@@ -315,6 +315,7 @@ def main():
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data,data2)
         if(st.checkbox("Want to Use this model to predict on a new dataset?")):
+           prediction_downloader(data2) ###загрузка
 
             
         
