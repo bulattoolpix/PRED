@@ -346,10 +346,11 @@ def main():
               feature_importance
         
               sorted_idx = model_xgb3.feature_importances_.argsort()
+              st.bar_chart(sorted_idx)
            
               pyplot.bar(range(len(model_xgb3.feature_importances_)), model_xgb3.feature_importances_)
               pyplot.show()
-              st.pyplot(pyplot.bar(range(len(model_xgb3.feature_importances_)), model_xgb3.feature_importances_)) 
+        
 
 
 
