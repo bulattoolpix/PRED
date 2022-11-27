@@ -343,8 +343,10 @@ def main():
     
               feature_importance=df_feature.sort_values(by='Feature Importance', ascending=False).T
               feature_importance
-              fig = px.bar(feature_importance, x=feature_importance.columns, y=feature_importance.T)
-              st.plotly_chart(fig)
+        
+              sorted_idx = model_xgb3.feature_importances_.argsort()
+              plt.barh(data.feature_names[sorted_idx], model_xgb3.feature_importances_[sorted_idx])
+              plt.xlabel("Xgboost Feature Importance")
 
 
             
