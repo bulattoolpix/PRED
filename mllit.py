@@ -323,6 +323,10 @@ def main():
              st.write('Uploaded data:', data.head(30))
              scaler = MinMaxScaler() 
              X = scaler.fit_transform( data )
+             model_xgb2 = XGBClassifier(max_depth=params_set[0], eta=params_set[1], min_child_weight=params_set[2],
+                              subsample=params_set[3], colsample_bylevel=params_set[4], colsample_bytree=params_set[5])
+    # model = XGBClassifier()
+             model_xgb2.fit(X_train, y_train)
              data['status'] =model_xgb2.predict(X)
             
         
