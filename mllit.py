@@ -249,6 +249,11 @@ def xgb_predictor(model_xgb2, rows, columns, data):
         data['status'] =prediction(X)
         
         
+        
+        
+        
+        
+        
 
         
         accuracy_pending = accuracy_score(data2.status, prediction)
@@ -266,7 +271,42 @@ def xgb_predictor(model_xgb2, rows, columns, data):
         # Download prediction as a CSV file
         prediction_downloader( datas )
          
-          
+        
+        
+    
+
+
+def xgb_predictor2(model_xgb2, rows, columns, data):
+    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+    st.text('This process probably takes few seconds...')
+    st.write(
+        f'Training dataset includes **{rows}** rows and **{columns}** columns')
+    st.write('')
+
+    if uploaded_file:
+        data = pd.read_csv(uploaded_file, low_memory=False)
+        st.write('Note: Currently, the CSV file should have **exactly the same** format with **training dataset**:',  data.head(2))
+        ##st.write('-'*80)
+        st.write('Uploaded data:', data.head(30))
+        st.write(
+            f'Uploaded data includes **{data.shape[0]}** rows and **{data.shape[1]}** columns')
+        ##start_time = datetime.datetime.now()
+        ##data = data.dropna(axis=0, how='all')
+        
+        ##data2 = data.copy()
+        ##X = data ##.drop(columns=['status'])
+        ##prediction = model_xgb.predict(X)
+        ##prediction_time = (datetime.datetime.now() - start_time).seconds
+        scaler = MinMaxScaler()  
+        X = scaler.fit_transform( data )
+        ##data['status'] =model_xgb2.predict(X)
+        data['status'] =prediction(X)    
+        
+        
+        
+        
+        
+        
           # Plot feature importance
     df_feature = pd.DataFrame.from_dict(model_xgb.get_booster().get_fscore(), orient='index')
     df_feature.columns = ['Feature Importance']
@@ -306,7 +346,33 @@ def main():
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data)
         if(st.checkbox("Want to Use this model to predict on a new dataset?")):
-            xgb_predictor(model_xgb, rows, columns, data)
+             uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+              st.text('This process probably takes few seconds...')
+              st.write(
+                  f'Training dataset includes **{rows}** rows and **{columns}** columns')
+              st.write('')
+
+              if uploaded_file:
+                  data = pd.read_csv(uploaded_file, low_memory=False)
+                  st.write('Note: Currently, the CSV file should have **exactly the same** format with **training dataset**:',  data.head(2))
+                  ##st.write('-'*80)
+                  st.write('Uploaded data:', data.head(30))
+                  st.write(
+                      f'Uploaded data includes **{data.shape[0]}** rows and **{data.shape[1]}** columns')
+                  ##start_time = datetime.datetime.now()
+                  ##data = data.dropna(axis=0, how='all')
+
+                  ##data2 = data.copy()
+                  ##X = data ##.drop(columns=['status'])
+                  ##prediction = model_xgb.predict(X)
+                  ##prediction_time = (datetime.datetime.now() - start_time).seconds
+                  scaler = MinMaxScaler()  
+                  X = scaler.fit_transform( data )
+                  ##data['status'] =model_xgb2.predict(X)
+                  data['status'] = model_xgb(X)    
+        
+
+    
 
             
             
