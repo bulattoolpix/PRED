@@ -340,7 +340,7 @@ def main():
               model_xgb3.fit(X_train1, y_train1)
     
               df_feature = pd.DataFrame.from_dict(model_xgb3.get_booster().get_fscore(), orient='index')
-              df_feature.columns =dfx1.columns.values.tolist()
+             ## df_feature.columns =dfx1.columns.values.tolist()
               df_feature.columns = ['Feature Importance']
               list(dfx1.columns)
 
