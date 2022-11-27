@@ -326,7 +326,7 @@ def main():
         home_page_builder(df, data, rows, columns)
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data,data2  )
-        if(st.checkbox("Want to Use this model to predict on a new dataset?")):
+        if(st.checkbox("Want to check Feature importance")):
            ##prediction_downloader(data2) ###загрузк
  ##             featureimp (df)
               scaler = MinMaxScaler()  
@@ -342,7 +342,7 @@ def main():
               df_feature = pd.DataFrame.from_dict(model_xgb3.get_booster().get_fscore(), orient='index')
              ## df_feature.columns =dfx1.columns.values.tolist()
               df_feature.columns = ['Feature Importance']
-              df_feature.columns =dfx1.columns
+              ##df_feature.columns =dfx1.columns
               list(dfx1.columns)
               df_feature
               
