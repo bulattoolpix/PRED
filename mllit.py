@@ -345,8 +345,8 @@ def main():
               feature_importance=df_feature.sort_values(by='Feature Importance', ascending=False).T
               feature_importance
         
-              sorted_idx = model_xgb3.feature_importances_.argsort()
-              st.bar_chart(sorted_idx)
+##              sorted_idx = model_xgb3.feature_importances_.argsort()
+              st.bar_chart(model_xgb3.feature_importances_)
            
               pyplot.bar(range(len(model_xgb3.feature_importances_)), model_xgb3.feature_importances_)
               pyplot.show()
