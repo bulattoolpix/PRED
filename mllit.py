@@ -329,7 +329,7 @@ def main():
            ##prediction_downloader(data2) ###загрузка
 
       
-            featureimp (df,df_feature)
+            featureimp (df)
 
             
         
