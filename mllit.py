@@ -323,11 +323,11 @@ def main():
     
 
 
-     uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
+    uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
              data2 = pd.read_csv(uploaded_file2, low_memory=False)
              st.write('Uploaded data:', data.head(30))
              scaler = MinMaxScaler() 
-             X = scaler.fit_transform( data )
+             X = scaler.fit_transform( data2 )
             
             
 
