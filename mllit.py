@@ -241,7 +241,7 @@ def xgb_page_builder(data,data2):
                           index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)',  'F1'], columns=['%'])) ##'ROC_AUC',
     st.subheader('Feature Importance:')
     st.write('Predicted target values for unknown target label ',data2)
-    prediction_downloader(data2) ###загрузка
+    st.prediction_downloader(data2) ###загрузка
     
     
     
