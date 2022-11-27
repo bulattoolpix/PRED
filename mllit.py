@@ -206,7 +206,7 @@ def xgb_predictor(df,data2,params_set ):
     ##fig.update_xaxes(tickangle=45, title_text='Features')
     ##fig.update_yaxes(title_text='Feature Importance')
     ##st.plotly_chart(fig)
-    return data2, model_xgb2,df_feature
+    return data2, model_xgb2
 
 
 def featureimp (df,df_feature):
