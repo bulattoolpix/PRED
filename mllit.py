@@ -323,7 +323,7 @@ def main():
              st.write('Uploaded data:', data.head(30))
              scaler = MinMaxScaler() 
              X = scaler.fit_transform( data )
-             data['status'] =model_xgb.predict(X)
+             data['status'] =model_xgb2.predict(X)
             
         
 
