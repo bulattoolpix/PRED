@@ -347,10 +347,8 @@ def main():
         model_xgb = xgb_page_builder(data)
         if(st.checkbox("Want to Use this model to predict on a new dataset?")):
              uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
-             
-                  data = pd.read_csv(uploaded_file, low_memory=False)
-        
-                  st.write('Uploaded data:', data.head(30))
+             data = pd.read_csv(uploaded_file, low_memory=False)
+             st.write('Uploaded data:', data.head(30))
                  
                   ##scaler = MinMaxScaler()  
                   ##X = scaler.fit_transform( data )
