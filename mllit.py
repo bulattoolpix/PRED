@@ -70,6 +70,8 @@ def XGB_train_metrics(df, params_set):
 
     # Make predictions for test data
     y_pred = model_xg.predict(X_test)
+    
+    z_pred = model_xg.predict(X)
 
     # Evaluate predictions
     accuracy_xgb = accuracy_score(y_test, y_pred)
@@ -77,7 +79,7 @@ def XGB_train_metrics(df, params_set):
     ##roc_auc_xgb = roc_auc_score(y_test, y_pred,multi_class='ovr')
     recall_xgb = recall_score(y_test, y_pred,average='micro')
     precision_xgb = precision_score(y_test, y_pred,average='micro')
-    return accuracy_xgb, f1_xgb,recall_xgb, precision_xgb, model_xg ##roc_auc_xgb, 
+    return accuracy_xgb, f1_xgb,recall_xgb, precision_xgb, model_xg, z_pred ##roc_auc_xgb, 
  
 
 
@@ -119,6 +121,12 @@ def prediction_downloader(data):
     href = f'<a href="data:file/csv;base64,{b64}">Download CSV File</a> (right-click and save as &lt;some_name&gt;.csv)'
     st.markdown(href, unsafe_allow_html=True)
     
+  
+  
+  
+  
+  
+  
   
   
 def home_page_builder(df, data, rows, columns):
@@ -189,7 +197,7 @@ def xgb_page_builder(data):
 
     start_time = datetime.datetime.now()
    ##roc_auc_xgb, 
-    accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb = XGB_train_metrics(data, params_set)
+    accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb, z_pred = XGB_train_metrics(data,X, params_set)
     st.subheader('Model Introduction')
     st.write('',params_set)
     st.write('XGBoost - e**X**treme **G**radient **B**oosting, is an implementation of gradient boosted **decision trees** designed for speed and performance, which has recently been dominating applied machine learning. We recommend you choose this model to do the prediction.')
@@ -205,7 +213,10 @@ def xgb_page_builder(data):
     st.table(pd.DataFrame(data=[round(accuracy_xgb * 100.0, 2), round(precision_xgb * 100.0, 2), round(recall_xgb*100, 2),  round(f1_xgb*100, 2)], ##,round(roc_auc_xgb*100, 2),],
                           index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)',  'F1'], columns=['%'])) ##'ROC_AUC',
     st.subheader('Feature Importance:')
-
+    
+    
+    
+    
     
 
   
@@ -222,7 +233,7 @@ def xgb_page_builder(data):
 
 
 
-def xgb_predictor(model_xgb2, rows, columns, data):
+def xgb_predictor(model_xgb, rows, columns, data):
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     st.text('This process probably takes few seconds...')
     st.write(
@@ -312,7 +323,13 @@ def main():
     
 
 
- 
+     uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
+             data2 = pd.read_csv(uploaded_file2, low_memory=False)
+             st.write('Uploaded data:', data.head(30))
+             scaler = MinMaxScaler() 
+             X = scaler.fit_transform( data )
+            
+            
 
     st.sidebar.title('Menu')
     choose_model = st.sidebar.selectbox("Choose the page or model", [
