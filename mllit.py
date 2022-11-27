@@ -276,31 +276,12 @@ def xgb_predictor(model_xgb2, rows, columns, data):
     
 
 
-def xgb_predictor2(model_xgb2, rows, columns, data):
-    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
-    st.text('This process probably takes few seconds...')
-    st.write(
-        f'Training dataset includes **{rows}** rows and **{columns}** columns')
-    st.write('')
+def xgb_predictor2(data):
 
-    if uploaded_file:
-        data = pd.read_csv(uploaded_file, low_memory=False)
-        st.write('Note: Currently, the CSV file should have **exactly the same** format with **training dataset**:',  data.head(2))
-        ##st.write('-'*80)
-        st.write('Uploaded data:', data.head(30))
-        st.write(
-            f'Uploaded data includes **{data.shape[0]}** rows and **{data.shape[1]}** columns')
-        ##start_time = datetime.datetime.now()
-        ##data = data.dropna(axis=0, how='all')
-        
-        ##data2 = data.copy()
-        ##X = data ##.drop(columns=['status'])
-        ##prediction = model_xgb.predict(X)
-        ##prediction_time = (datetime.datetime.now() - start_time).seconds
         scaler = MinMaxScaler()  
         X = scaler.fit_transform( data )
-        ##data['status'] =model_xgb2.predict(X)
-        data['status'] =prediction(X)    
+        data['status'] =model_xgb.predict(X)
+        ##data['status'] =prediction(X)    
         
         
         
@@ -349,11 +330,10 @@ def main():
              uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
              data = pd.read_csv(uploaded_file, low_memory=False)
              st.write('Uploaded data:', data.head(30))
-             scaler = MinMaxScaler()  
+             scaler = MinMaxScaler() 
              X = scaler.fit_transform( data )
-             st.write(X)
-                  ##data['status'] =model_xgb2.predict(X)
-                  ##data['status'] = model_xgb(X)    
+             data['status'] =model_xgb.predict(X)
+            
         
 
     
