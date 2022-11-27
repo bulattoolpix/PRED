@@ -242,18 +242,6 @@ def xgb_page_builder(data,data2):
     st.subheader('Feature Importance:')
     st.write('Predicted target values for unknown target label ',data2)
     prediction_downloader(data2) ###загрузка
-    accuracy_pending = accuracy_score(data2.status, prediction)
-    f1_pending = f1_score(data2.status, prediction)
-    ##roc_auc_pending = roc_auc_score(data2.status, prediction)
-    recall_pending = recall_score(data2.status, prediction)
-    precision_pending = precision_score(data2.status, prediction)
-    st.write('Metrics on uploaded data:')
-    st.text("Note: This is only temporary since new data won't have labels")
-    st.write('Accuracy:', round(100*accuracy_pending, 2), '%')
-    st.write('Precision:', round(100*precision_pending, 2), '%')
-    st.write('Recall:', round(100*recall_pending, 2), '%')
-    ##st.write('ROC AUC:', round(100*roc_auc_pending, 2), '%')
-    st.write('F1:', round(100*f1_pending, 2), '%')
     # Download prediction as a CSV file
     
     
