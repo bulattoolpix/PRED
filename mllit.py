@@ -236,9 +236,9 @@ def xgb_page_builder(data,data2,feature_importance ):
    ##roc_auc_xgb, 
     accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb = XGB_train_metrics(data, params_set)
     
-    model_xgb = XGB_train_metrics(data,params_set)
+    model_xgb = XGB_train_metrics(data,params_set,feature_importance )
     
-    model_xgb2= xgb_predictor(data,data2,params_set)   ####прогноз новой выборки на основе выставленных гипермарметров 
+    model_xgb2= xgb_predictor(data,data2,params_set,feature_importance )   ####прогноз новой выборки на основе выставленных гипермарметров 
       
     st.subheader('Model Introduction')
     st.write('',params_set)
