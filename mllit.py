@@ -202,10 +202,10 @@ def xgb_predictor(df,data2,params_set ):
     df_feature.columns = ['Feature Importance']
     
     feature_importance = df_feature.sort_values(by='Feature Importance', ascending=False).T
-    fig = px.bar(feature_importance, x=feature_importance.columns, y=feature_importance.T)
-    fig.update_xaxes(tickangle=45, title_text='Features')
-    fig.update_yaxes(title_text='Feature Importance')
-    st.plotly_chart(fig)
+    ##fig = px.bar(feature_importance, x=feature_importance.columns, y=feature_importance.T)
+    ##fig.update_xaxes(tickangle=45, title_text='Features')
+    ##fig.update_yaxes(title_text='Feature Importance')
+    ##st.plotly_chart(fig)
     return data2, model_xgb2,feature_importance 
 
 
