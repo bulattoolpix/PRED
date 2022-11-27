@@ -178,7 +178,7 @@ def home_page_builder(df, data, rows, columns):
        
 
 
-def xgb_page_builder(data):
+def xgb_page_builder(data,data2):
     st.sidebar.header('Hyper Parameters')
     st.sidebar.markdown('You can tune the hyper parameters by siding')
     max_depth = st.sidebar.slider('Select max_depth (default = 30)', 3, 30, 30)
@@ -197,7 +197,7 @@ def xgb_page_builder(data):
 
     start_time = datetime.datetime.now()
    ##roc_auc_xgb, 
-    accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb, z_pred = XGB_train_metrics(data,V, data2, params_set)
+    accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb, z_pred = XGB_train_metrics(data,data2, params_set)
     st.subheader('Model Introduction')
     st.write('',params_set)
     st.write('XGBoost - e**X**treme **G**radient **B**oosting, is an implementation of gradient boosted **decision trees** designed for speed and performance, which has recently been dominating applied machine learning. We recommend you choose this model to do the prediction.')
