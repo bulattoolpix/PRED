@@ -54,7 +54,7 @@ def upload_different_data(uploaded_file):
     
 
 
-def XGB_train_metrics(df, data2,params_set):
+def XGB_train_metrics(df, data2,V,params_set):
     scaler = MinMaxScaler()  
     dfx = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
     X = scaler.fit_transform(dfx)
