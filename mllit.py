@@ -346,7 +346,7 @@ def main():
               feature_importance
         
 ##              sorted_idx = model_xgb3.feature_importances_.argsort()
-              st.bar_chart(model_xgb3.feature_importances_, label=data.columns))
+              st.bar_chart(model_xgb3.feature_importances_, label=data.columns)
 
 
         
