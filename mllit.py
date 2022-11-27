@@ -347,12 +347,7 @@ def main():
         model_xgb = xgb_page_builder(data)
         if(st.checkbox("Want to Use this model to predict on a new dataset?")):
              uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
-              st.text('This process probably takes few seconds...')
-              st.write(
-                  f'Training dataset includes **{rows}** rows and **{columns}** columns')
-              st.write('')
-
-              if uploaded_file:
+             if uploaded_file:
                   data = pd.read_csv(uploaded_file, low_memory=False)
                   st.write('Note: Currently, the CSV file should have **exactly the same** format with **training dataset**:',  data.head(2))
                   ##st.write('-'*80)
