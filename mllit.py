@@ -234,9 +234,9 @@ def xgb_page_builder(data,data2):
    ##roc_auc_xgb, 
     accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb = XGB_train_metrics(data, params_set)
     
-    model_xgb = XGB_train_metrics(df,params_set)
+    model_xgb = XGB_train_metrics(data,params_set)
     
-    model_xgb2= XGB_train_metrics2(df,data2,params_set)
+    model_xgb2= XGB_train_metrics2(data,data2,params_set)
       
     st.subheader('Model Introduction')
     st.write('',params_set)
