@@ -232,7 +232,7 @@ def xgb_page_builder(data,data2):
 
     start_time = datetime.datetime.now()
    ##roc_auc_xgb, 
-    accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb = XGB_train_metrics(df,params_set)
+    accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb = XGB_train_metrics(data, params_set)
     
     model_xgb = XGB_train_metrics(df,params_set)
     
