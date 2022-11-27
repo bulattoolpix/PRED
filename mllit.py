@@ -345,8 +345,9 @@ def main():
               feature_importance
         
               sorted_idx = model_xgb3.feature_importances_.argsort()
-              plt.barh(data.feature_names[sorted_idx], model_xgb3.feature_importances_[sorted_idx])
-              plt.xlabel("Xgboost Feature Importance")
+           
+              pyplot.bar(range(len(model_xgb3.feature_importances_)), model_xgb3.feature_importances_)
+              pyplot.show()
 
 
             
