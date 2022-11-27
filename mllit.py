@@ -276,16 +276,7 @@ def xgb_predictor(model_xgb2, rows, columns, data):
     
 
 
-def xgb_predictor2(data):
-
-        scaler = MinMaxScaler()  
-        X = scaler.fit_transform( data )
-        data['status'] =model_xgb.predict(X)
-        ##data['status'] =prediction(X)    
-        
-        
-        
-        
+               
         
         
           # Plot feature importance
