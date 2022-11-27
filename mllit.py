@@ -240,6 +240,7 @@ def xgb_predictor(model_xgb, rows, columns, data):
     st.write(
         f'Training dataset includes **{rows}** rows and **{columns}** columns')
     st.write('')
+    
 
     if uploaded_file:
         data = pd.read_csv(uploaded_file, low_memory=False)
@@ -344,16 +345,12 @@ def main():
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data,data2)
         if(st.checkbox("Want to Use this model to predict on a new dataset?")):
-             uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
-             data = pd.read_csv(uploaded_file, low_memory=False)
-             st.write('Uploaded data:', data.head(30))
+             
              model_xgs = XGBClassifier()
                # model = XGBClassifier()
              model_xgs.fit(X_train, y_train)
-   
-             scaler = MinMaxScaler() 
-             X = scaler.fit_transform( data )
-             data['status'] = model_xgs.predict(X)
+  
+             data2['status'] = model_xgs.predict(V )
             
         
 
