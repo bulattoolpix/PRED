@@ -191,7 +191,7 @@ def xgb_page_builder(data):
    ##roc_auc_xgb, 
     accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb = XGB_train_metrics(data, params_set)
     st.subheader('Model Introduction')
-    st.write('')
+    st.write('',params_set)
     st.write('XGBoost - e**X**treme **G**radient **B**oosting, is an implementation of gradient boosted **decision trees** designed for speed and performance, which has recently been dominating applied machine learning. We recommend you choose this model to do the prediction.')
     st.write('')
     st.subheader('XGB metrics on testing dataset')
