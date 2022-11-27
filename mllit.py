@@ -195,7 +195,7 @@ def XGB_train_metrics2(df,data2,params_set):
     model_xgb2.fit(X_train1, y_train1)
 
     # Make predictions for test data
-    data2['species'] =  model_xgb2.predict(Xzero)
+    data2['target'] =  model_xgb2.predict(Xzero)
     return  data2
        
 
@@ -240,7 +240,7 @@ def xgb_page_builder(data,data2):
     st.table(pd.DataFrame(data=[round(accuracy_xgb * 100.0, 2), round(precision_xgb * 100.0, 2), round(recall_xgb*100, 2),  round(f1_xgb*100, 2)], ##,round(roc_auc_xgb*100, 2),],
                           index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)',  'F1'], columns=['%'])) ##'ROC_AUC',
     st.subheader('Feature Importance:')
-    st.write('',data2)
+    st.write('Predicted target values for unknown target label ',data2)
     
     
     
