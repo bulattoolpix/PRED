@@ -206,7 +206,7 @@ def xgb_predictor(df,data2,params_set ):
     ##fig.update_xaxes(tickangle=45, title_text='Features')
     ##fig.update_yaxes(title_text='Feature Importance')
     ##st.plotly_chart(fig)
-    return data2, model_xgb2,feature_importance 
+    return data2, model_xgb2,df_feature
 
 
        
@@ -253,7 +253,7 @@ def xgb_page_builder(data,data2 ):
                           index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)',  'F1'], columns=['%'])) ##'ROC_AUC',
     st.subheader('Feature Importance:')
     st.write('Predicted target values for unknown target label ',data2)
-    st.write('Predicted target values for unknown target label ', feature_importance )
+    st.write('Predicted target values for unknown target label ', df_feature)
     # Download prediction as a CSV file
    
    
