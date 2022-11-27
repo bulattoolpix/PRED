@@ -209,6 +209,26 @@ def xgb_predictor(df,data2,params_set ):
     return data2, model_xgb2,df_feature
 
 
+def featureimp (df,df_feature):
+    scaler = MinMaxScaler()  
+    dfx1 = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
+    X1= scaler.fit_transform(dfx1)
+    y1 = df.iloc[:, -1]
+    X_train1, X_test1, y_train1, y_test1 = train_test_split(X1, y1, test_size = 0.25, random_state = 0)
+ 
+    model_xgb3 = XGBClassifier()
+    # model = XGBClassifier()
+    model_xgb3.fit(X_train1, y_train1)
+    
+    df_feature = pd.DataFrame.from_dict(model_xgb3.get_booster().get_fscore(), orient='index')
+    df_feature.columns = ['Feature Importance']
+    
+    feature_importance = df_feature.sort_values(by='Feature Importance', ascending=False).T
+    ##fig = px.bar(feature_importance, x=feature_importance.columns, y=feature_importance.T)
+    ##fig.update_xaxes(tickangle=45, title_text='Features')
+    ##fig.update_yaxes(title_text='Feature Importance')
+    ##st.plotly_chart(fig)
+    return model_xgb3,df_feature
        
 
 
@@ -235,8 +255,8 @@ def xgb_page_builder(data,data2 ):
     
     model_xgb = XGB_train_metrics(data,params_set)
     
-    model_xgb2= xgb_predictor(data,data2,params_set,df_feature )   ####прогноз новой выборки на основе выставленных гипермарметров 
-    
+    model_xgb2= xgb_predictor(data,data2,params_set )   ####прогноз новой выборки на основе выставленных гипермарметров 
+    featureimp (,dff,df_feature)
     ##df_feature = pd.DataFrame.from_dict(model_xgb2.get_booster().get_fscore(), orient='index')
     
     st.subheader('Model Introduction')
