@@ -334,7 +334,7 @@ def main():
               y1 = data.iloc[:, -1]
               X_train1, X_test1, y_train1, y_test1 = train_test_split(X1, y1, test_size = 0.25, random_state = 0)
  
-              odel_xgb3 = XGBClassifier()
+              model_xgb3 = XGBClassifier()
     # model = XGBClassifier()
               model_xgb3.fit(X_train1, y_train1)
     
