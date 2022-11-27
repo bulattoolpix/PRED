@@ -212,7 +212,7 @@ def xgb_predictor(df,data2,params_set ):
        
 
 
-def xgb_page_builder(data,data2):
+def xgb_page_builder(data,data2, feature_importance ):
     st.sidebar.header('Hyper Parameters')
     st.sidebar.markdown('You can tune the hyper parameters by siding')
     max_depth = st.sidebar.slider('Select max_depth (default = 30)', 3, 30, 30)
