@@ -288,6 +288,11 @@ def xgb_predictor(model_xgb2, rows, columns, data):
     fig.update_yaxes(title_text='Feature Importance')
     st.plotly_chart(fig)
     return model_xgb 
+  
+  
+  
+
+  
      
 def main():
     """Streamlit demo web app"""
@@ -313,6 +318,9 @@ def main():
     choose_model = st.sidebar.selectbox("Choose the page or model", [
                                         "Home",  "XGB"])
     
+    
+    
+    
     if choose_model == "Home":
         home_page_builder(df, data, rows, columns)
     if choose_model == "XGB":
@@ -321,9 +329,13 @@ def main():
              uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
              data = pd.read_csv(uploaded_file, low_memory=False)
              st.write('Uploaded data:', data.head(30))
+             model_xgs = XGBClassifier()
+               # model = XGBClassifier()
+             model_xgs.fit(X_train, y_train)
+   
              scaler = MinMaxScaler() 
              X = scaler.fit_transform( data )
-             data['status'] = model_xg.predict(X)
+             data['status'] = model_xgs.predict(X)
             
         
 
