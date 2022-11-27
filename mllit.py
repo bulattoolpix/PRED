@@ -54,7 +54,7 @@ def upload_different_data(uploaded_file):
     
 
 
-def XGB_train_metrics(df, params_set):
+def XGB_train_metrics(df, V,params_set):
     scaler = MinMaxScaler()  
     dfx = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
     X = scaler.fit_transform(dfx)
@@ -71,7 +71,7 @@ def XGB_train_metrics(df, params_set):
     # Make predictions for test data
     y_pred = model_xg.predict(X_test)
     
-    z_pred = model_xg.predict(X)
+    z_pred = model_xg.predict(V)
 
     # Evaluate predictions
     accuracy_xgb = accuracy_score(y_test, y_pred)
@@ -325,9 +325,9 @@ def main():
 
     uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
     data2 = pd.read_csv(uploaded_file2, low_memory=False)
-    st.write('Uploaded data:', data.head(30))
+    st.write('Uploaded data:', data2.head(30))
     scaler = MinMaxScaler() 
-    X = scaler.fit_transform( data2 )
+    V = scaler.fit_transform( data2 )
             
             
 
