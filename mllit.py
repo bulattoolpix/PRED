@@ -235,8 +235,10 @@ def xgb_page_builder(data,data2 ):
     
     model_xgb = XGB_train_metrics(data,params_set)
     
-    model_xgb2= xgb_predictor(data,data2,params_set,df_feature)   ####прогноз новой выборки на основе выставленных гипермарметров 
-      
+    model_xgb2= xgb_predictor(data,data2,params_set)   ####прогноз новой выборки на основе выставленных гипермарметров 
+    
+    df_feature = pd.DataFrame.from_dict(model_xgb2.get_booster().get_fscore(), orient='index')
+    
     st.subheader('Model Introduction')
     st.write('',params_set)
     st.write('XGBoost - e**X**treme **G**radient **B**oosting, is an implementation of gradient boosted **decision trees** designed for speed and performance, which has recently been dominating applied machine learning. We recommend you choose this model to do the prediction.')
