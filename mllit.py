@@ -346,6 +346,7 @@ def main():
               feature_importance=df_feature.sort_values(by='Feature Importance', ascending=False).T
               feature_importance
               dfx1.columns
+              list(dfx1)
               sorted_idx = pd.DataFrame(model_xgb3.feature_importances_,columns=list(dfx1))
               ##sorted_idx .columns =dfx1.columns
               st.bar_chart( sorted_idx)
