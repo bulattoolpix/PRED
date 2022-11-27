@@ -349,6 +349,8 @@ def main():
            
               pyplot.bar(range(len(model_xgb3.feature_importances_)), model_xgb3.feature_importances_)
               pyplot.show()
+              st.pyplot(pyplot.bar(range(len(model_xgb3.feature_importances_)), model_xgb3.feature_importances_)) 
+
 
 
             
