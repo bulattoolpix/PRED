@@ -54,7 +54,7 @@ def upload_different_data(uploaded_file):
     
 
 
-def XGB_train_metrics(df, V,params_set):
+def XGB_train_metrics(df, V,data2,params_set):
     scaler = MinMaxScaler()  
     dfx = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
     X = scaler.fit_transform(dfx)
@@ -197,7 +197,7 @@ def xgb_page_builder(data):
 
     start_time = datetime.datetime.now()
    ##roc_auc_xgb, 
-    accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb, z_pred = XGB_train_metrics(data,X, params_set)
+    accuracy_xgb, f1_xgb,  recall_xgb, precision_xgb, model_xgb, z_pred = XGB_train_metrics(data,V, data2, params_set)
     st.subheader('Model Introduction')
     st.write('',params_set)
     st.write('XGBoost - e**X**treme **G**radient **B**oosting, is an implementation of gradient boosted **decision trees** designed for speed and performance, which has recently been dominating applied machine learning. We recommend you choose this model to do the prediction.')
@@ -213,6 +213,7 @@ def xgb_page_builder(data):
     st.table(pd.DataFrame(data=[round(accuracy_xgb * 100.0, 2), round(precision_xgb * 100.0, 2), round(recall_xgb*100, 2),  round(f1_xgb*100, 2)], ##,round(roc_auc_xgb*100, 2),],
                           index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)',  'F1'], columns=['%'])) ##'ROC_AUC',
     st.subheader('Feature Importance:')
+    st.write('',data2["spec"]=z_pred )
     
     
     
