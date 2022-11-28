@@ -303,7 +303,13 @@ def main():
         key="1",
      
     )
-
+    if uploaded_file is not None:
+      
+        df = pd.read_csv(uploaded_file)
+        uploaded_file.seek(0)
+    
+        df, data, filename, rows, columns = upload_different_data(uploaded_file)
+        home_page_builder(df, data, rows, columns)
    
             
             
@@ -312,13 +318,7 @@ def main():
     choose_model = st.sidebar.selectbox("Choose the page or model", [
                                         "Home",  "XGB"])
     
-        if uploaded_file is not None:
-      
-        df = pd.read_csv(uploaded_file)
-        uploaded_file.seek(0)
-    
-        df, data, filename, rows, columns = upload_different_data(uploaded_file)
-        home_page_builder(df, data, rows, columns)
+       
     
 
 
