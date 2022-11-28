@@ -318,7 +318,7 @@ def main():
      
     )
     if uploaded_file is not None:
-      
+        global df
         df = pd.read_csv(uploaded_file)
         uploaded_file.seek(0)
     
@@ -347,6 +347,7 @@ def main():
     
     
     if choose_model == "Home":
+       global df
        home_page_builder(  df, data, rows, columns)
        
        
