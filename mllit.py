@@ -145,7 +145,7 @@ def home_page_builder(df, data, rows, columns):
 
    
     # Insert Check-Box to show the snippet of the data.
-    if st.checkbox('Show Data'):
+    if  st.checkbox('Show Data'):
         st.subheader("Raw data")
         st.write(
             f'Input dataset includes **{rows}** rows and **{columns}** columns')
