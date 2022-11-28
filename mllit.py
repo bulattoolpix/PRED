@@ -291,7 +291,7 @@ def xgb_page_builder(data,data2 ):
      
 def main():
     """Streamlit demo web app"""
-    
+    st.markdown('<style>body{background-color: Blue;}</style>',unsafe_allow_html=True)
     st.write(
     """
 # 📊 AUTO CLASSIFIER App
