@@ -311,7 +311,7 @@ def main():
 """
 )
     
-   uploaded_file = st.file_uploader(
+  uploaded_file = st.file_uploader(
         "",
         key="1",
      
