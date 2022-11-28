@@ -322,7 +322,7 @@ def main():
         df = pd.read_csv(uploaded_file)
         uploaded_file.seek(0)
     
-        global df, data, filename, rows, columns = upload_different_data(uploaded_file)
+        df, data, filename, rows, columns = upload_different_data(uploaded_file)
     
             
     uploaded_file2 = st.file_uploader(
@@ -331,10 +331,11 @@ def main():
      
          )      
     if uploaded_file2 is not None:
+        global df2 
       
         df2 = pd.read_csv(uploaded_file2)
         uploaded_file2.seek(0)
-        global df2, data2, filename2, rows2, columns2 = upload_different_data2(uploaded_file2)
+        df2, data2, filename2, rows2, columns2 = upload_different_data2(uploaded_file2)
     
 
          
