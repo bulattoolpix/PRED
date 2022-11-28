@@ -312,17 +312,7 @@ def main():
 Загрузите файл для обучения и файл для прогноза 
 """
 )
-    uploaded_file = st.file_uploader(
-        "",
-        key="1",
-     
-    )
-    if uploaded_file is not None:
-      
-        df = pd.read_csv(uploaded_file)
-        uploaded_file.seek(0)
-    
-        df, data, filename, rows, columns = upload_different_data(uploaded_file)
+
 
          
             
@@ -333,10 +323,19 @@ def main():
     
     
     if choose_model == "Home":
-       home_page_builder(  df, data, rows, columns
-         
-   
-       )
+       home_page_builder(  df, data, rows, columns)
+       uploaded_file = st.file_uploader(
+        "",
+        key="1",
+     
+         )
+       if uploaded_file is not None:
+      
+           df = pd.read_csv(uploaded_file)
+           uploaded_file.seek(0)
+
+           df, data, filename, rows, columns = upload_different_data(uploaded_file) 
+
        
 
     if choose_model == "XGB":
