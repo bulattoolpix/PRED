@@ -325,7 +325,7 @@ def main():
 
     uploaded_file2 = st.file_uploader(
         "",
-        key="1",
+        key="2",
      
     )
     if uploaded_file2 is not None:
