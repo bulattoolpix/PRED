@@ -35,7 +35,7 @@ from matplotlib import pyplot
 # importing the random forest classifier model and training it on the dataset
 
 ##st.cache(allow_output_mutation=True)
-
+st.markdown('<style>body{background-color: Blue;}</style>',unsafe_allow_html=True)
 
     
 @st.cache
