@@ -144,7 +144,8 @@ def prediction_downloader(data2):
   
   
   
-def home_page_builder(global df, data, rows, columns):
+def home_page_builder( df, data, rows, columns):
+    global df
     st.title("Streamlit Demo")
     st.write('')
     st.write('')
