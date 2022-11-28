@@ -310,13 +310,7 @@ def main():
     
         df, data, filename, rows, columns = upload_different_data(uploaded_file)
         home_page_builder(df, data, rows, columns)
-   
-            
-            
 
-    st.sidebar.title('Menu')
-    choose_model = st.sidebar.selectbox("Choose the page or model", [
-                                        "Home",  "XGB"])
     
        
     
@@ -327,7 +321,13 @@ def main():
     st.write('Uploaded data:', data2.head(30))
     scaler = MinMaxScaler() 
     V = scaler.fit_transform( data2 )
-    
+   
+            
+            
+
+    st.sidebar.title('Menu')
+    choose_model = st.sidebar.selectbox("Choose the page or model", [
+                                        "Home",  "XGB"])    
     
     
     if choose_model == "Home":
