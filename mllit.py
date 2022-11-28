@@ -331,6 +331,7 @@ def main():
     
     
     if choose_model == "Home":
+       home_page_builder(df, data, rows, columns)
        
 
     if choose_model == "XGB":
