@@ -311,19 +311,7 @@ def main():
 """
 )
     
-   
-            
-            
-
-    st.sidebar.title('Menu')
-    choose_model = st.sidebar.selectbox("Choose the page or model", [
-                                        "Home",  "XGB"])    
-    
-    
-    if choose_model == "Home":
-       home_page_builder( 
-         
-         uploaded_file = st.file_uploader(
+   uploaded_file = st.file_uploader(
         "",
         key="1",
      
@@ -335,12 +323,8 @@ def main():
         uploaded_file.seek(0)
     
         df, data, filename, rows, columns = upload_different_data(uploaded_file)
-
-
-         
-       ##  dfs, data, rows, columns
-         
-    uploaded_file2 = st.file_uploader(
+      
+   uploaded_file2 = st.file_uploader(
         "",
         key="2",
      
@@ -353,7 +337,18 @@ def main():
     ##data2 = pd.read_csv(uploaded_file2)
     ##st.write('Uploaded data:', data2.head(30))
     ##scaler = MinMaxScaler() 
-    ##V = scaler.fit_transform( data2 )
+    ##V = scaler.fit_transform( data2 )        
+            
+
+    st.sidebar.title('Menu')
+    choose_model = st.sidebar.selectbox("Choose the page or model", [
+                                        "Home",  "XGB"])    
+    
+    
+    if choose_model == "Home":
+       home_page_builder(  dfs, data, rows, columns
+         
+   
        )
        
 
