@@ -309,13 +309,9 @@ def main():
         uploaded_file.seek(0)
     
         df, data, filename, rows, columns = upload_different_data(uploaded_file)
-        home_page_builder(df, data, rows, columns)
-
-    
-       
-    
 
 
+  
     uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
     data2 = pd.read_csv(uploaded_file2, low_memory=False)
     st.write('Uploaded data:', data2.head(30))
