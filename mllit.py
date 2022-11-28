@@ -323,7 +323,7 @@ def main():
         df, data, filename, rows, columns = upload_different_data(uploaded_file)
 
 
-   uploaded_file2 = st.file_uploader(
+    uploaded_file2 = st.file_uploader(
         "",
         key="1",
      
