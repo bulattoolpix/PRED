@@ -333,7 +333,7 @@ def main():
     
     
     if choose_model == "Home":
-       home_page_builder(  dfs, data, rows, columns
+       home_page_builder(  df, data, rows, columns
          
    
        )
