@@ -347,8 +347,8 @@ def main():
     
     
     if choose_model == "Home":
-       global df
-       home_page_builder(  df, data, rows, columns)
+       
+       home_page_builder(  global df, data, rows, columns)
        
        
 
