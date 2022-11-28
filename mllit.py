@@ -51,6 +51,19 @@ def upload_different_data(uploaded_file):
     df = df.fillna(0)
     data=df ##,  = data_preprocessing(df)
     return df, data,  'Uploaded file', rows, columns
+
+ 
+def upload_different_data2(uploaded_file2):
+    uploaded_file2 = st.file_uploader("Choose a CSV file", type="csv")
+    df2 = pd.read_csv(uploaded_file2, low_memory=False)
+    df2.iloc[:, -1]
+    rows2 = df2.shape[0]
+    columns2 = df2.shape[1]
+    
+    # Drop rows with all Null
+    df2 = df2.fillna(0)
+    data2=df2 ##,  = data_preprocessing(df)
+    return df2, data2,  'Uploaded file', rows2, columns2
     
 
 
@@ -310,9 +323,17 @@ def main():
         df, data, filename, rows, columns = upload_different_data(uploaded_file)
 
 
-  
-    uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
-    data2 = pd.read_csv(uploaded_file2)
+   uploaded_file2 = st.file_uploader(
+        "",
+        key="1",
+     
+    )
+    if uploaded_file2 is not None:
+      
+     df2 = pd.read_csv(uploaded_file2)
+     uploaded_file2.seek(0)
+     df2, data2, filename2, rows2, columns2 = upload_different_data2(uploaded_file2)
+    ##data2 = pd.read_csv(uploaded_file2)
     ##st.write('Uploaded data:', data2.head(30))
     ##scaler = MinMaxScaler() 
     ##V = scaler.fit_transform( data2 )
