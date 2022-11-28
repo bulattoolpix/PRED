@@ -302,16 +302,17 @@ def xgb_page_builder(data,data2 ):
   
      
 def main():
+    st.markdown('<style>body{background-color: Blue;}</style>',unsafe_allow_html=True)
+
     """Streamlit demo web app"""
-   ## st.markdown('<style>body{background-color: Black;}</style>',unsafe_allow_html=True)
+    
     st.write(
     """
 # 📊 AUTO CLASSIFIER App
 Загрузите файл для обучения и файл для прогноза 
 """
 )
-    
-  uploaded_file = st.file_uploader(
+    uploaded_file = st.file_uploader(
         "",
         key="1",
      
@@ -319,16 +320,11 @@ def main():
     if uploaded_file is not None:
       
         df = pd.read_csv(uploaded_file)
-        dfs=df
         uploaded_file.seek(0)
     
         df, data, filename, rows, columns = upload_different_data(uploaded_file)
-      
-   uploaded_file2 = st.file_uploader(
-        "",
-        key="2",
-     
-    )
+
+
     if uploaded_file2 is not None:
       
      df2 = pd.read_csv(uploaded_file2)
