@@ -304,20 +304,7 @@ def main():
      
     )
 
-    if uploaded_file is not None:
-      
-        df = pd.read_csv(uploaded_file)
-        uploaded_file.seek(0)
-    
-    df, data, filename, rows, columns = upload_different_data(uploaded_file)
-    
-
-
-    uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
-    data2 = pd.read_csv(uploaded_file2, low_memory=False)
-    st.write('Uploaded data:', data2.head(30))
-    scaler = MinMaxScaler() 
-    V = scaler.fit_transform( data2 )
+   
             
             
 
@@ -329,7 +316,22 @@ def main():
     
     
     if choose_model == "Home":
+       
+        if uploaded_file is not None:
+      
+        df = pd.read_csv(uploaded_file)
+        uploaded_file.seek(0)
+    
+        df, data, filename, rows, columns = upload_different_data(uploaded_file)
         home_page_builder(df, data, rows, columns)
+    
+
+
+    uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
+    data2 = pd.read_csv(uploaded_file2, low_memory=False)
+    st.write('Uploaded data:', data2.head(30))
+    scaler = MinMaxScaler() 
+    V = scaler.fit_transform( data2 )
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data,data2  )
         if(st.checkbox("Want to check Feature importance")):
