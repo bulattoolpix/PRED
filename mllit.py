@@ -318,6 +318,7 @@ def main():
     if uploaded_file is not None:
       
         df = pd.read_csv(uploaded_file)
+        dfs=df
         uploaded_file.seek(0)
     
         df, data, filename, rows, columns = upload_different_data(uploaded_file)
@@ -347,7 +348,7 @@ def main():
     
     
     if choose_model == "Home":
-       home_page_builder(global df, data, rows, columns)
+       home_page_builder( dfs, data, rows, columns)
        
 
     if choose_model == "XGB":
