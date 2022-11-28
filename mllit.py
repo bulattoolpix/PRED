@@ -346,11 +346,11 @@ def main():
         key="2",
      
          )      
-       if uploaded_file2 is not None:
+        if uploaded_file2 is not None:
       
-       df2 = pd.read_csv(uploaded_file2)
-       uploaded_file2.seek(0)
-       df2, data2, filename2, rows2, columns2 = upload_different_data2(uploaded_file2)
+           df2 = pd.read_csv(uploaded_file2)
+           uploaded_file2.seek(0)
+           df2, data2, filename2, rows2, columns2 = upload_different_data2(uploaded_file2)
       ##data2 = pd.read_csv(uploaded_file2)
       ##st.write('Uploaded data:', data2.head(30))
       ##scaler = MinMaxScaler() 
