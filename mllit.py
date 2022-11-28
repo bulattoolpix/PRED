@@ -303,6 +303,7 @@ def xgb_page_builder(data,data2 ):
   
      
 def main():
+    global df
     st.markdown('<style>body{background-color: grey;}</style>',unsafe_allow_html=True)
 
     """Streamlit demo web app"""
