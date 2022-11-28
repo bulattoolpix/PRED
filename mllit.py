@@ -292,6 +292,13 @@ def xgb_page_builder(data,data2 ):
 def main():
     """Streamlit demo web app"""
     
+
+st.write(
+    """
+# 📊 AUTO CLASSIFIER App
+Загрузите файл для обучения и файл для прогноза 
+"""
+)
     uploaded_file = st.file_uploader(
         "",
         key="1",
