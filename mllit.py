@@ -312,7 +312,7 @@ def main():
     choose_model = st.sidebar.selectbox("Choose the page or model", [
                                         "Home",  "XGB"])
     
-            if uploaded_file is not None:
+        if uploaded_file is not None:
       
         df = pd.read_csv(uploaded_file)
         uploaded_file.seek(0)
