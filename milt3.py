@@ -78,7 +78,7 @@ def XGB_train_metrics(df,params_set):
     precision_xgb = precision_score(y_test, y_pred,average='micro')
     precision_xgb2=print(classification_report(y_test,y_pred)
     
-    return  precision_xgb2, model_xg ##roc_auc_xgb, 
+    return model_xg ##roc_auc_xgb, 
  
 
 
