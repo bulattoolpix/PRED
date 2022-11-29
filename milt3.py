@@ -52,6 +52,7 @@ def upload_different_data(uploaded_file):
     # Drop rows with all Null
     df = df.fillna(0)
     data=df ##,  = data_preprocessing(df)
+    dg=data
     return df, data,  'Uploaded file', rows, columns
     
 
@@ -147,12 +148,12 @@ def home_page_builder(df, data, rows, columns):
    
     # Insert Check-Box to show the snippet of the data.
     if  st.checkbox('Show Data'):
-        st.subheader("Raw data")
+        ##st.subheader("Raw data")
         st.write(
             f'Input dataset includes **{rows}** rows and **{columns}** columns')
         ##st.write(data.head())
     
-        st.write(data.head())
+        st.write(dg.head())
 
     # show data visulization
     if st.checkbox('Show Visualization'):
@@ -243,13 +244,7 @@ def featureimp (data):
 
 def xgb_page_builder(data,data2 ):
     
-    uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
-    data2 = pd.read_csv(uploaded_file2, low_memory=False)
-    st.write('Uploaded data:', data2.head(30))
-    scaler = MinMaxScaler() 
-    V = scaler.fit_transform( data2 )
-    
-    
+
     st.sidebar.header('Hyper Parameters')
     st.sidebar.markdown('You can tune the hyper parameters by siding')
     max_depth = st.sidebar.slider('Select max_depth (default = 30)', 3, 30, 30)
@@ -330,7 +325,13 @@ def main():
         home_page_builder(df, data, rows, columns)
         df.head(4)
 
-   
+    uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
+    data2 = pd.read_csv(uploaded_file2, low_memory=False)
+    st.write('Uploaded data:', data2.head(30))
+    scaler = MinMaxScaler() 
+    V = scaler.fit_transform( data2 )
+    
+    
             
        
 
