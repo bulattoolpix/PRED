@@ -180,7 +180,7 @@ def home_page_builder(df, data, rows, columns):
   
   
 
-def xgb_predictor(df,data2,params_set ):
+def xgb_predictor(df,data2,params_set,feature_importance ):
     scaler = MinMaxScaler()  
     dfx1 = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
     X1= scaler.fit_transform(dfx1)
@@ -198,41 +198,24 @@ def xgb_predictor(df,data2,params_set ):
     # Make predictions for test data
     data2['target'] =  model_xgb2.predict(Xzero)
     
-    df_feature = pd.DataFrame.from_dict(model_xgb2.get_booster().get_fscore(), orient='index')
+    df_feature = pd.DataFrame.from_dict(
+       model_xgb2.get_booster().get_fscore(), orient='index')
     df_feature.columns = ['Feature Importance']
     
-    feature_importance = df_feature.sort_values(by='Feature Importance', ascending=False).T
-    ##fig = px.bar(feature_importance, x=feature_importance.columns, y=feature_importance.T)
-    ##fig.update_xaxes(tickangle=45, title_text='Features')
-    ##fig.update_yaxes(title_text='Feature Importance')
-    ##st.plotly_chart(fig)
-    return data2, model_xgb2
+    feature_importance = df_feature.sort_values(
+        by='Feature Importance', ascending=False).T
+    fig = px.bar(feature_importance, x=feature_importance.columns,
+                 y=feature_importance.T)
+    fig.update_xaxes(tickangle=45, title_text='Features')
+    fig.update_yaxes(title_text='Feature Importance')
+    st.plotly_chart(fig)
+    return data2, model_xgb2,feature_importance 
 
-## не работает
-def featureimp (data):
-    scaler = MinMaxScaler()  
-    dfx1 = data.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
-    X1= scaler.fit_transform(dfx1)
-    y1 = data.iloc[:, -1]
-    X_train1, X_test1, y_train1, y_test1 = train_test_split(X1, y1, test_size = 0.25, random_state = 0)
- 
-    model_xgb3 = XGBClassifier()
-    # model = XGBClassifier()
-    model_xgb3.fit(X_train1, y_train1)
-    
-    df_feature = pd.DataFrame.from_dict(model_xgb3.get_booster().get_fscore(), orient='index')
-    df_feature.columns = ['Feature Importance']
-    
-    feature_importance = df_feature.sort_values(by='Feature Importance', ascending=False).T
-    ##fig = px.bar(feature_importance, x=feature_importance.columns, y=feature_importance.T)
-    ##fig.update_xaxes(tickangle=45, title_text='Features')
-    ##fig.update_yaxes(title_text='Feature Importance')
-    ##st.plotly_chart(fig)
-    return  feature_importance,df_feature
+
        
 
 
-def xgb_page_builder(data,data2 ):
+def xgb_page_builder(data,data2):
     st.sidebar.header('Hyper Parameters')
     st.sidebar.markdown('You can tune the hyper parameters by siding')
     max_depth = st.sidebar.slider('Select max_depth (default = 30)', 3, 30, 30)
@@ -255,10 +238,8 @@ def xgb_page_builder(data,data2 ):
     
     model_xgb = XGB_train_metrics(data,params_set)
     
-    model_xgb2= xgb_predictor(data,data2,params_set )   ####прогноз новой выборки на основе выставленных гипермарметров 
-    ##featureimp (data)
-    ##df_feature = pd.DataFrame.from_dict(model_xgb2.get_booster().get_fscore(), orient='index')
-    
+    model_xgb2= xgb_predictor(data,data2,params_set)   ####прогноз новой выборки на основе выставленных гипермарметров 
+      
     st.subheader('Model Introduction')
     st.write('',params_set)
     st.write('XGBoost - e**X**treme **G**radient **B**oosting, is an implementation of gradient boosted **decision trees** designed for speed and performance, which has recently been dominating applied machine learning. We recommend you choose this model to do the prediction.')
@@ -275,11 +256,11 @@ def xgb_page_builder(data,data2 ):
                           index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)',  'F1'], columns=['%'])) ##'ROC_AUC',
     st.subheader('Feature Importance:')
     st.write('Predicted target values for unknown target label ',data2)
-    ##st.write('Predicted target values for unknown target label ', df_feature)
+   
     # Download prediction as a CSV file
    
-   
-    return   model_xgb2
+    feature_importance 
+    return feature_importance,  model_xgb2
           # Plot feature importance
   
   
@@ -324,29 +305,9 @@ def main():
     if choose_model == "Home":
         home_page_builder(df, data, rows, columns)
     if choose_model == "XGB":
-        model_xgb = xgb_page_builder(data,data2  )
-        if(st.checkbox("Want to Use this model to predict on a new dataset?")):
-           ##prediction_downloader(data2) ###загрузк
-##            featureimp (df)
-              scaler = MinMaxScaler()  
-              dfx1 = data.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
-              X1= scaler.fit_transform(dfx1)
-              y1 = data.iloc[:, -1]
-              X_train1, X_test1, y_train1, y_test1 = train_test_split(X1, y1, test_size = 0.25, random_state = 0)
-
-              model_xgb3 = XGBClassifier()
-              # model = XGBClassifier()
-              model_xgb3.fit(X_train1, y_train1)
-
-              df_feature = pd.DataFrame.from_dict(model_xgb3.get_booster().get_fscore(), orient='index')
-              df_feature.columns = ['Feature Importance']
-
-              feature_importance = df_feature.sort_values(by='Feature Importance', ascending=False).T
-              ##fig = px.bar(feature_importance, x=feature_importance.columns, y=feature_importance.T)
-              ##fig.update_xaxes(tickangle=45, title_text='Features')
-              ##fig.update_yaxes(title_text='Feature Importance')
-              ##st.plotly_chart(fig)
-              return  feature_importance,df_feature
+        model_xgb = xgb_page_builder(data,data2,feature_importance )
+       ## if(st.checkbox("Want to Use this model to predict on a new dataset?")):
+           ##prediction_downloader(data2) ###загрузка
 
             
         
