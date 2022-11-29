@@ -1,3 +1,4 @@
+##29/11  9%16
 import streamlit as st 
 import streamlit.components.v1 as stc 
 import pandas as pd
@@ -38,6 +39,13 @@ import plotly.graph_objects as go
 ##st.cache(allow_output_mutation=True)
 
 
+st.set_page_config(
+    page_title = "modeling",
+    layout = "centered",
+    page_icon= ":shark:",
+    initial_sidebar_state = 'auto'
+    )
+
     
 @st.cache
 
@@ -48,8 +56,6 @@ def upload_different_data(uploaded_file):
     df.iloc[:, -1]
     rows = df.shape[0]
     columns = df.shape[1]
-    
-    # Drop rows with all Null
     df = df.fillna(0)
     data=df ##,  = data_preprocessing(df)
     return df, data,  'Uploaded file', rows, columns
@@ -134,10 +140,10 @@ def prediction_downloader(data2):
   
   
 def home_page_builder(df, data, rows, columns):
-   ## st.title("Streamlit Demo")
-   ## st.write('')
-  ##  st.write('')
-    ##st.subheader('INTRODUCTION')
+    st.title("E X P L O R E   M O D U L E")
+    st.write('')
+    st.write('')
+    st.subheader('')
     st.write('')
     st.write(
         'Using machine learning algorithms to predict approval status of application')
@@ -150,18 +156,18 @@ def home_page_builder(df, data, rows, columns):
         st.subheader("Raw data")
         st.write(
             f'Input dataset includes **{rows}** rows and **{columns}** columns')
-        ##st.write(data.head())
+        st.write(df.head())
     
-        st.write(data.head())
+        ##st.write(data.head())
 
     # show data visulization
     if st.checkbox('Show Visualization'):
         
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=data.iloc[:, 0], y=data.iloc[:, -1],
+        fig.add_trace(go.Scatter(x=df.iloc[:, 0], y=df.iloc[:, -1],
                             mode='lines',
                             name='lines'))
-        fig.add_trace(go.Scatter(x=data.iloc[:, 2], y=data.iloc[:, -1],
+        fig.add_trace(go.Scatter(x=df.iloc[:, 2], y=df.iloc[:, -1],
                             mode='lines+markers',
                             name='lines+markers'))
 
@@ -242,6 +248,7 @@ def featureimp (data):
 
 
 def xgb_page_builder(data,data2 ):
+    st.title("P R E D I C T I O N   M O D U L E")
     st.sidebar.header('Hyper Parameters')
     st.sidebar.markdown('You can tune the hyper parameters by siding')
     max_depth = st.sidebar.slider('Select max_depth (default = 30)', 3, 30, 30)
@@ -268,7 +275,7 @@ def xgb_page_builder(data,data2 ):
     ##featureimp (data)
     ##df_feature = pd.DataFrame.from_dict(model_xgb2.get_booster().get_fscore(), orient='index')
     
-    st.subheader('Model Introduction')
+    st.subheader('Model Hyper tuned Parameters')
     st.write('',params_set)
     st.write('XGBoost - e**X**treme **G**radient **B**oosting, is an implementation of gradient boosted **decision trees** designed for speed and performance, which has recently been dominating applied machine learning. We recommend you choose this model to do the prediction.')
     st.write('')
@@ -282,7 +289,7 @@ def xgb_page_builder(data,data2 ):
         f'Running time: {(datetime.datetime.now() - start_time).seconds} s')
     st.table(pd.DataFrame(data=[round(accuracy_xgb * 100.0, 2), round(precision_xgb * 100.0, 2), round(recall_xgb*100, 2),  round(f1_xgb*100, 2)], ##,round(roc_auc_xgb*100, 2),],
                           index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)',  'F1'], columns=['%'])) ##'ROC_AUC',
-    st.subheader('Feature Importance:')
+    st.subheader('P R E D I C T E D @nbsp R E S U L T S :')
     st.write('Predicted target values for unknown target label ',data2)
     ##st.write('Predicted target values for unknown target label ', df_feature)
     # Download prediction as a CSV file
@@ -300,14 +307,9 @@ def main():
     st.write(
     """
 # 🎮 AUTO CLASSIFIER App
-Загрузите файл для обучения и второй файл для прогноза 
+Загрузите файл для обучения и файл для прогноза 
 """
-)   
-    
-    st.write('')
-    st.write('')
-    st.write('')
-    st.write('')
+)
     uploaded_file = st.file_uploader(
         "",
         key="1",
@@ -317,10 +319,12 @@ def main():
       
         df = pd.read_csv(uploaded_file)
         uploaded_file.seek(0)
-    
-        df, data, filename, rows, columns = upload_different_data(uploaded_file)
-        home_page_builder(df, data, rows, columns)
-        df.head(4)
+        rows = df.shape[0]
+        columns = df.shape[1]
+        df = df.fillna(0)
+        data = df.fillna(0)
+        ##df, data, filename, rows, columns = upload_different_data(uploaded_file)
+        
 
    
     uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
