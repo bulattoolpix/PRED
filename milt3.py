@@ -319,7 +319,7 @@ def main():
         df, data, filename, rows, columns = upload_different_data(uploaded_file)
         home_page_builder(df, data, rows, columns)
 
-     uploaded_file2 = st.file_uploader(
+    uploaded_file2 = st.file_uploader(
         "",
         key="2",
      
