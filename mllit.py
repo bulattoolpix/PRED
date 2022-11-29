@@ -36,7 +36,7 @@ import plotly.graph_objects as go
 # importing the random forest classifier model and training it on the dataset
 
 ##st.cache(allow_output_mutation=True)
-
+st.set_page_config(layout="wide")
 
     
 @st.cache
