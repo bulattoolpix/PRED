@@ -320,7 +320,7 @@ def main():
         df = pd.read_csv(uploaded_file)
         uploaded_file.seek(0)
     
-    df, data, filename, rows, columns = upload_different_data(uploaded_file)
+    ##df, data, filename, rows, columns = upload_different_data(uploaded_file)
     
 
 
