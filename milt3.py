@@ -72,7 +72,7 @@ def XGB_train_metrics(df,params_set):
 
     # Evaluate predictions
 
-    precision_xgb2=classification_report(y_test,y_pred) 
+   ## precision_xgb2=classification_report(y_test,y_pred) 
     return model_xg 
  
 
