@@ -153,7 +153,7 @@ def home_page_builder(df, data, rows, columns):
             f'Input dataset includes **{rows}** rows and **{columns}** columns')
         ##st.write(data.head())
     
-        st.write(dg.head())
+        st.write(data.head())
 
     # show data visulization
     if st.checkbox('Show Visualization'):
