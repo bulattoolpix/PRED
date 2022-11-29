@@ -48,8 +48,6 @@ def upload_different_data(uploaded_file):
     df.iloc[:, -1]
     rows = df.shape[0]
     columns = df.shape[1]
-    
-    # Drop rows with all Null
     df = df.fillna(0)
     data=df ##,  = data_preprocessing(df)
     return df, data,  'Uploaded file', rows, columns
@@ -312,9 +310,11 @@ def main():
       
         df = pd.read_csv(uploaded_file)
         uploaded_file.seek(0)
-    
-        df, data, filename, rows, columns = upload_different_data(uploaded_file)
-        home_page_builder(df, data, rows, columns)
+        rows = df.shape[0]
+        columns = df.shape[1]
+        df = df.fillna(0)
+        ##df, data, filename, rows, columns = upload_different_data(uploaded_file)
+        
 
    
     uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
