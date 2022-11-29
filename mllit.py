@@ -167,7 +167,7 @@ def home_page_builder( df, data, rows, columns):
 
     # show data visulization
     if st.checkbox('Show Visualization'):
-        fig = px.histogram(df.iloc[:, -1], x='Species',
+        fig = px.histogram(data.iloc[:, -1], x='Species',
                            title='Distribution of Target Variable "')
         st.plotly_chart(fig)
         st.write('We can see Approved is about three times of Decliened, which may bring an imbalanced issue for prediction - we will deal with this issue during modeling.')
@@ -185,7 +185,7 @@ def home_page_builder( df, data, rows, columns):
     if st.checkbox('Show Feature Summary'):
         st.write('Raw data after dropping rows that have NULL for every column; ')
         st.write('Also converted column "time" to datetime format')
-        st.write(feature_summary(df))
+        st.write(feature_summary(data))
         st.write('For each columns in our original dataset, we can see the statistics summary (Null Value Count, Unique Value Count, Data Type, etc.)')
 
 
