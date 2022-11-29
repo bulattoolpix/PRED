@@ -29,6 +29,7 @@ from sklearn.preprocessing import OrdinalEncoder, LabelEncoder
 from sklearn.preprocessing import PowerTransformer
 from sklearn.model_selection import train_test_split
 from matplotlib import pyplot
+import plotly.graph_objects as go
 
 
   
@@ -151,12 +152,19 @@ def home_page_builder(df, data, rows, columns):
             f'Input dataset includes **{rows}** rows and **{columns}** columns')
         st.write(df.head())
     
-        st.write(data.head())
+        ##st.write(data.head())
 
     # show data visulization
     if st.checkbox('Show Visualization'):
-        fig = px.histogram(df.iloc[:, -1], x='Species',
-                           title='Distribution of Target Variable "')
+        
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=df.iloc[:, 0], y=df.iloc[:, -1],
+                            mode='lines',
+                            name='lines'))
+        fig.add_trace(go.Scatter(x=df.iloc[:, 2], y=df.iloc[:, -1],
+                            mode='lines+markers',
+                            name='lines+markers'))
+
         st.plotly_chart(fig)
         st.write('We can see Approved is about three times of Decliened, which may bring an imbalanced issue for prediction - we will deal with this issue during modeling.')
         st.write('-'*60)
@@ -291,7 +299,7 @@ def xgb_page_builder(data,data2 ):
      
 def main():
     """Streamlit demo web app"""
-    
+  
     st.write(
     """
 # 📊 AUTO CLASSIFIER App
@@ -311,19 +319,14 @@ def main():
         df, data, filename, rows, columns = upload_different_data(uploaded_file)
         home_page_builder(df, data, rows, columns)
 
-    
-       
-    
-
-
+   
     uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
     data2 = pd.read_csv(uploaded_file2, low_memory=False)
     st.write('Uploaded data:', data2.head(30))
     scaler = MinMaxScaler() 
     V = scaler.fit_transform( data2 )
-   
             
-            
+       
 
     st.sidebar.title('Menu')
     choose_model = st.sidebar.selectbox("Choose the page or model", [
