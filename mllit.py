@@ -30,7 +30,7 @@ from sklearn.preprocessing import PowerTransformer
 from sklearn.model_selection import train_test_split
 from matplotlib import pyplot
 
-st.markdown('<style>body{background-color: Blue;}</style>',unsafe_allow_html=True)
+
 [theme]
 
 primaryColor="#d33682"
@@ -299,7 +299,7 @@ def xgb_page_builder(data,data2 ):
   
      
 def main():
-    st.markdown('<style>body{background-color: Blue;}</style>',unsafe_allow_html=True)
+
 
     """Streamlit demo web app"""
     
