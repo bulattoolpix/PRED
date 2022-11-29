@@ -1,4 +1,4 @@
-
+@ -1,377 +1,384 @@
 import streamlit as st 
 import streamlit.components.v1 as stc 
 import pandas as pd
@@ -293,6 +293,13 @@ def xgb_page_builder(data,data2 ):
 def main():
     """Streamlit demo web app"""
     
+
+st.write(
+    """
+# 📊 AUTO CLASSIFIER App
+Загрузите файл для обучения и файл для прогноза 
+"""
+)
     uploaded_file = st.file_uploader(
         "",
         key="1",
@@ -327,7 +334,7 @@ def main():
         home_page_builder(df, data, rows, columns)
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data,data2  )
-        if(st.checkbox("Want to Use this model to predict on a new dataset?")):
+        if(st.checkbox("Want to check Feature importance")):
            ##prediction_downloader(data2) ###загрузк
  ##             featureimp (df)
               scaler = MinMaxScaler()  
@@ -341,17 +348,24 @@ def main():
               model_xgb3.fit(X_train1, y_train1)
     
               df_feature = pd.DataFrame.from_dict(model_xgb3.get_booster().get_fscore(), orient='index')
+             ## df_feature.columns =dfx1.columns.values.tolist()
               df_feature.columns = ['Feature Importance']
-              st.bar_chart(df_feature)
+              ##df_feature.columns =dfx1.columns
+              list(dfx1.columns)
+              df_feature
+              
+
+#Using list(df) to get the list of all Column Names
+
+             ## st.bar_chart(df_feature)
     
               feature_importance=df_feature.sort_values(by='Feature Importance', ascending=False).T
               feature_importance
               dfx1.columns
               list(dfx1)
-              dfx1.columns.to_array
               dfx1.columns.values.tolist()
               
-              sorted_idx = pd.DataFrame(model_xgb3.feature_importances_,columns= dfx1.columns.values.tolist())
+              sorted_idx = pd.DataFrame(model_xgb3.feature_importances_)
            
               ##sorted_idx .columns =dfx1.columns
               st.bar_chart( sorted_idx)
@@ -369,18 +383,3 @@ def main():
     
 
             
-            
-            
-            
-if __name__ == "__main__":
-    main()
-
-
-
-
-
-
-
-
-  
-  
