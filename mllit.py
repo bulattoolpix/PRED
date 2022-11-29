@@ -289,13 +289,11 @@ def xgb_page_builder(data,data2 ):
   
 
   
+  
      
 def main():
     """Streamlit demo web app"""
     
-
-
-
     uploaded_file = st.file_uploader(
         "",
         key="1",
@@ -306,7 +304,7 @@ def main():
       
         df = pd.read_csv(uploaded_file)
         uploaded_file.seek(0)
-    
+   
     df, data, filename, rows, columns = upload_different_data(uploaded_file)
     
 
