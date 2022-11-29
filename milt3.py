@@ -168,7 +168,7 @@ def home_page_builder(df, data, rows, columns):
 
         st.plotly_chart(fig)
         st.write('We can see Approved is about three times of Decliened, which may bring an imbalanced issue for prediction - we will deal with this issue during modeling.')
-        st.write('-'*60)
+        ##st.write('-'*60)
       
       ##второй рисунок подряд 
       ## fig = px.histogram(df.time, x='time',
@@ -311,6 +311,7 @@ def main():
     st.write('')
     st.write('')
     st.write('')
+    
     uploaded_file = st.file_uploader(
         "",
         key="1",
@@ -329,9 +330,7 @@ def main():
     uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
     data2 = pd.read_csv(uploaded_file2, low_memory=False)
     st.write('Uploaded data:', data2.head(30))
-    scaler = MinMaxScaler() 
-    V = scaler.fit_transform( data2 )
-    
+
     
             
        
