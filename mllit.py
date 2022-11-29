@@ -138,10 +138,10 @@ def prediction_downloader(data2):
   
   
 def home_page_builder(df, data, rows, columns):
-    st.title("Streamlit Demo")
+    st.title("")
     st.write('')
     st.write('')
-    st.subheader('INTRODUCTION')
+    st.subheader('')
     st.write('')
     st.write(
         'Using machine learning algorithms to predict approval status of application')
