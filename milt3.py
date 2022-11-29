@@ -299,7 +299,7 @@ def xgb_page_builder(data,data2 ):
      
 def main():
     """Streamlit demo web app"""
-    home_page_builder(df, data, rows, columns)    
+  
     st.write(
     """
 # 📊 AUTO CLASSIFIER App
@@ -331,7 +331,7 @@ def main():
     V = scaler.fit_transform( data2 )
    
             
-            
+    home_page_builder(df, data, rows, columns)           
 
     st.sidebar.title('Menu')
     choose_model = st.sidebar.selectbox("Choose the page or model", [
