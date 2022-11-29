@@ -274,7 +274,7 @@ def xgb_page_builder(data,data2 ):
     ##featureimp (data)
     ##df_feature = pd.DataFrame.from_dict(model_xgb2.get_booster().get_fscore(), orient='index')
     
-    st.subheader('Model Introduction')
+    st.subheader('Model Hyper tuned Parameters')
     st.write('',params_set)
     st.write('XGBoost - e**X**treme **G**radient **B**oosting, is an implementation of gradient boosted **decision trees** designed for speed and performance, which has recently been dominating applied machine learning. We recommend you choose this model to do the prediction.')
     st.write('')
