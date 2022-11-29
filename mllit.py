@@ -332,7 +332,7 @@ def main():
     V = scaler.fit_transform( data2 )
    
             
-            
+    home_page_builder(df, data, rows, columns)      
 
     st.sidebar.title('Menu')
     choose_model = st.sidebar.selectbox("Choose the page or model", [
