@@ -313,6 +313,7 @@ def main():
         rows = df.shape[0]
         columns = df.shape[1]
         df = df.fillna(0)
+        data = df.fillna(0)
         ##df, data, filename, rows, columns = upload_different_data(uploaded_file)
         
 
