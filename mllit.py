@@ -345,6 +345,14 @@ def main():
 
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data,data2  )
+        
+        
+        if(st.checkbox("download_results")):
+              download_button(
+              data2,
+              "File.csv",
+              "Download to CSV")
+
         if(st.checkbox("Want to check Feature importance")):
            ##prediction_downloader(data2) ###загрузк
  ##             featureimp (df)
@@ -399,6 +407,9 @@ def main():
             
 if __name__ == "__main__":
     main()
+    
+
+    
 
 
 
