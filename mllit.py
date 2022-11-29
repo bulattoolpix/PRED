@@ -288,7 +288,7 @@ def xgb_page_builder(data,data2 ):
         f'Running time: {(datetime.datetime.now() - start_time).seconds} s')
     st.table(pd.DataFrame(data=[round(accuracy_xgb * 100.0, 2), round(precision_xgb * 100.0, 2), round(recall_xgb*100, 2),  round(f1_xgb*100, 2)], ##,round(roc_auc_xgb*100, 2),],
                           index=['Accuracy', 'Precision (% we predicted as Declined are truly Declined)', 'Recall (% Declined have been identified)',  'F1'], columns=['%'])) ##'ROC_AUC',
-    st.subheader('Feature Importance:')
+    st.subheader('P R E D I C T E D @nbsp R E S U L T S :')
     st.write('Predicted target values for unknown target label ',data2)
     ##st.write('Predicted target values for unknown target label ', df_feature)
     # Download prediction as a CSV file
