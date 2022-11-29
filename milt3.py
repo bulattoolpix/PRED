@@ -134,10 +134,10 @@ def prediction_downloader(data2):
   
   
 def home_page_builder(df, data, rows, columns):
-    st.title("Streamlit Demo")
-    st.write('')
-    st.write('')
-    st.subheader('INTRODUCTION')
+   ## st.title("Streamlit Demo")
+   ## st.write('')
+  ##  st.write('')
+    ##st.subheader('INTRODUCTION')
     st.write('')
     st.write(
         'Using machine learning algorithms to predict approval status of application')
@@ -302,7 +302,10 @@ def main():
 # 🎮 AUTO CLASSIFIER App
 Загрузите файл для обучения и второй файл для прогноза 
 """
-)
+)   st.write('')
+    st.write('')
+    st.write('')
+    st.write('')
     uploaded_file = st.file_uploader(
         "",
         key="1",
