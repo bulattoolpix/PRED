@@ -38,7 +38,7 @@ from matplotlib import pyplot
 
 
     
-@st.cache
+##@st.cache
 
  
 def upload_different_data(uploaded_file):
