@@ -300,7 +300,7 @@ def main():
     st.write(
     """
 # 🎮 AUTO CLASSIFIER App
-Загрузите файл для обучения и файл для прогноза 
+Загрузите файл для обучения и второй файл для прогноза 
 """
 )
     uploaded_file = st.file_uploader(
