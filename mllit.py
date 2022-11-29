@@ -340,29 +340,16 @@ def main():
               model_xgb3.fit(X_train1, y_train1)
     
               df_feature = pd.DataFrame.from_dict(model_xgb3.get_booster().get_fscore(), orient='index')
-              df_feature.columns =dfx1.columns.values.tolist()
               df_feature.columns = ['Feature Importance']
-              list(dfx1.columns)
-
-#Using list(df) to get the list of all Column Names
-
-             ## st.bar_chart(df_feature)
     
               feature_importance=df_feature.sort_values(by='Feature Importance', ascending=False).T
               feature_importance
-              dfx1.columns
-              list(dfx1)
-              dfx1.columns.values.tolist()
-              
-              sorted_idx = pd.DataFrame(model_xgb3.feature_importances_)
-           
-              ##sorted_idx .columns =dfx1.columns
-              st.bar_chart( sorted_idx)
-
-              ##st.bar_chart(model_xgb3.feature_importances_.rename_axis('unique_values'), label=data.columns)
-
-
         
+              sorted_idx = model_xgb3.feature_importances_.argsort()
+           
+              pyplot.bar(range(len(model_xgb3.feature_importances_)), model_xgb3.feature_importances_)
+              pyplot.show()
+              st.pyplot(pyplot.bar(range(len(model_xgb3.feature_importances_)), model_xgb3.feature_importances_)) 
 
 
 
