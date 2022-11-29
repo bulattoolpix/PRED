@@ -30,11 +30,21 @@ from sklearn.preprocessing import PowerTransformer
 from sklearn.model_selection import train_test_split
 from matplotlib import pyplot
 
+st.markdown('<style>body{background-color: Blue;}</style>',unsafe_allow_html=True)
+[theme]
+
+primaryColor="#d33682"
+backgroundColor="#002b36"
+secondaryBackgroundColor="#586e75"
+textColor="#fafafa"
+font="sans serif"
+
 
   
 # importing the random forest classifier model and training it on the dataset
 
 ##st.cache(allow_output_mutation=True)
+
 
     
 @st.cache
@@ -51,19 +61,6 @@ def upload_different_data(uploaded_file):
     df = df.fillna(0)
     data=df ##,  = data_preprocessing(df)
     return df, data,  'Uploaded file', rows, columns
-
- 
-def upload_different_data2(uploaded_file2):
-    uploaded_file2 = st.file_uploader("Choose a CSV file", type="csv")
-    df2 = pd.read_csv(uploaded_file2, low_memory=False)
-    df2.iloc[:, -1]
-    rows2 = df2.shape[0]
-    columns2 = df2.shape[1]
-    
-    # Drop rows with all Null
-    df2 = df2.fillna(0)
-    data2=df2 ##,  = data_preprocessing(df)
-    return df2, data2,  'Uploaded file', rows2, columns2
     
 
 
@@ -144,10 +141,10 @@ def prediction_downloader(data2):
   
   
   
-def home_page_builder( data, rows, columns):
- 
+def home_page_builder(df, data, rows, columns):
     st.title("Streamlit Demo")
-
+    st.write('')
+    st.write('')
     st.subheader('INTRODUCTION')
     st.write('')
     st.write(
@@ -161,13 +158,13 @@ def home_page_builder( data, rows, columns):
         st.subheader("Raw data")
         st.write(
             f'Input dataset includes **{rows}** rows and **{columns}** columns')
-      ##  st.write(df.head())
+        st.write(df.head())
     
         st.write(data.head())
 
     # show data visulization
     if st.checkbox('Show Visualization'):
-        fig = px.histogram(data.iloc[:, -1], x='Species',
+        fig = px.histogram(df.iloc[:, -1], x='Species',
                            title='Distribution of Target Variable "')
         st.plotly_chart(fig)
         st.write('We can see Approved is about three times of Decliened, which may bring an imbalanced issue for prediction - we will deal with this issue during modeling.')
@@ -185,7 +182,7 @@ def home_page_builder( data, rows, columns):
     if st.checkbox('Show Feature Summary'):
         st.write('Raw data after dropping rows that have NULL for every column; ')
         st.write('Also converted column "time" to datetime format')
-        st.write(feature_summary(data))
+        st.write(feature_summary(df))
         st.write('For each columns in our original dataset, we can see the statistics summary (Null Value Count, Unique Value Count, Data Type, etc.)')
 
 
@@ -302,8 +299,7 @@ def xgb_page_builder(data,data2 ):
   
      
 def main():
-    global df
-    st.markdown('<style>body{background-color: grey;}</style>',unsafe_allow_html=True)
+    st.markdown('<style>body{background-color: Blue;}</style>',unsafe_allow_html=True)
 
     """Streamlit demo web app"""
     
@@ -319,27 +315,21 @@ def main():
      
     )
     if uploaded_file is not None:
-        global df
+      
         df = pd.read_csv(uploaded_file)
-        ##uploaded_file.seek(0)
+        uploaded_file.seek(0)
     
         df, data, filename, rows, columns = upload_different_data(uploaded_file)
-    
-            
-    uploaded_file2 = st.file_uploader(
-        "",
-        key="2",
-     
-         )      
-    if uploaded_file2 is not None:
-        global df2 
-      
-        df2 = pd.read_csv(uploaded_file2)
-        ##uploaded_file2.seek(0)
-        df2, data2, filename2, rows2, columns2 = upload_different_data2(uploaded_file2)
-    
 
-         
+
+  
+    uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
+    data2 = pd.read_csv(uploaded_file2, low_memory=False)
+    st.write('Uploaded data:', data2.head(30))
+    scaler = MinMaxScaler() 
+    V = scaler.fit_transform( data2 )
+   
+            
             
 
     st.sidebar.title('Menu')
@@ -348,18 +338,11 @@ def main():
     
     
     if choose_model == "Home":
-       
-       home_page_builder(   data, rows, columns)
-       
+       home_page_builder(df, data, rows, columns)
        
 
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data,data2  )
-        
-      ##data2 = pd.read_csv(uploaded_file2)
-      ##st.write('Uploaded data:', data2.head(30))
-      ##scaler = MinMaxScaler() 
-      ##V = scaler.fit_transform( data2 )   
         if(st.checkbox("Want to check Feature importance")):
            ##prediction_downloader(data2) ###загрузк
  ##             featureimp (df)
