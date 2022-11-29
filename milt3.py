@@ -320,6 +320,7 @@ def main():
     
         df, data, filename, rows, columns = upload_different_data(uploaded_file)
         home_page_builder(df, data, rows, columns)
+        df.head(4)
 
    
     uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
