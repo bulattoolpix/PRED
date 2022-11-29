@@ -1,4 +1,4 @@
-@ -1,401 +1,397 @@
+
 import streamlit as st 
 import streamlit.components.v1 as stc 
 import pandas as pd
