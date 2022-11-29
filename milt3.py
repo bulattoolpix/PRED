@@ -150,18 +150,18 @@ def home_page_builder(df, data, rows, columns):
         st.subheader("Raw data")
         st.write(
             f'Input dataset includes **{rows}** rows and **{columns}** columns')
-        st.write(df.head())
-    
         ##st.write(data.head())
+    
+        st.write(data.head())
 
     # show data visulization
     if st.checkbox('Show Visualization'):
         
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=df.iloc[:, 0], y=df.iloc[:, -1],
+        fig.add_trace(go.Scatter(x=data.iloc[:, 0], y=data.iloc[:, -1],
                             mode='lines',
                             name='lines'))
-        fig.add_trace(go.Scatter(x=df.iloc[:, 2], y=df.iloc[:, -1],
+        fig.add_trace(go.Scatter(x=data.iloc[:, 2], y=data.iloc[:, -1],
                             mode='lines+markers',
                             name='lines+markers'))
 
