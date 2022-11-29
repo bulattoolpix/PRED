@@ -144,7 +144,7 @@ def prediction_downloader(data2):
   
   
   
-def home_page_builder( df, data, rows, columns):
+def home_page_builder( data, rows, columns):
  
     st.title("Streamlit Demo")
 
@@ -349,7 +349,7 @@ def main():
     
     if choose_model == "Home":
        
-       home_page_builder(  df, data, rows, columns)
+       home_page_builder(   data, rows, columns)
        
        
 
