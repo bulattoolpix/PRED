@@ -293,16 +293,13 @@ def xgb_page_builder(data,data2 ):
   
   
   
-  
-
-  
-     
+      
 def main():
-    """Streamlit demo web app"""
+    """P R E D I C T I O N   M O D U L E"""
   
     st.write(
     """
-# 📊 AUTO CLASSIFIER App
+# 🎮 AUTO CLASSIFIER App
 Загрузите файл для обучения и файл для прогноза 
 """
 )
