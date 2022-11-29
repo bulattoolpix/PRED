@@ -41,7 +41,7 @@ import plotly.graph_objects as go
 st.set_page_config(
     page_title = "modeling",
     layout = "centered",
-    page_icon= ":shark:"
+    page_icon= ":cat:"
     )
 
     
@@ -138,7 +138,7 @@ def prediction_downloader(data2):
   
   
 def home_page_builder(df, data, rows, columns):
-    st.title("")
+    st.title(""""P R E D I C T I O N   M O D U L E"""")
     st.write('')
     st.write('')
     st.subheader('')
