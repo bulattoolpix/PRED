@@ -38,7 +38,7 @@ from matplotlib import pyplot
 
 
     
-##@st.cache
+@st.cache
 
  
 def upload_different_data(uploaded_file):
@@ -145,7 +145,7 @@ def home_page_builder(df, data, rows, columns):
 
    
     # Insert Check-Box to show the snippet of the data.
-    if  st.checkbox('Show Data'):
+    if st.checkbox('Show Data'):
         st.subheader("Raw data")
         st.write(
             f'Input dataset includes **{rows}** rows and **{columns}** columns')
@@ -292,27 +292,18 @@ def xgb_page_builder(data,data2 ):
 def main():
     """Streamlit demo web app"""
     
-    st.write(
-    """
-# 📊 AUTO CLASSIFIER App
-Загрузите файл для обучения и файл для прогноза 
-"""
-)
     uploaded_file = st.file_uploader(
         "",
         key="1",
      
     )
+
     if uploaded_file is not None:
       
         df = pd.read_csv(uploaded_file)
         uploaded_file.seek(0)
     
-        df, data, filename, rows, columns = upload_different_data(uploaded_file)
-        home_page_builder(df, data, rows, columns)
-
-    
-       
+    df, data, filename, rows, columns = upload_different_data(uploaded_file)
     
 
 
@@ -321,22 +312,21 @@ def main():
     st.write('Uploaded data:', data2.head(30))
     scaler = MinMaxScaler() 
     V = scaler.fit_transform( data2 )
-   
             
             
 
     st.sidebar.title('Menu')
     choose_model = st.sidebar.selectbox("Choose the page or model", [
-                                        "Home",  "XGB"])    
+                                        "Home",  "XGB"])
+    
+    
     
     
     if choose_model == "Home":
-       home_page_builder(df, data, rows, columns)
-       
-
+        home_page_builder(df, data, rows, columns)
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data,data2  )
-        if(st.checkbox("Want to check Feature importance")):
+        if(st.checkbox("Want to Use this model to predict on a new dataset?")):
            ##prediction_downloader(data2) ###загрузк
  ##             featureimp (df)
               scaler = MinMaxScaler()  
@@ -350,12 +340,9 @@ def main():
               model_xgb3.fit(X_train1, y_train1)
     
               df_feature = pd.DataFrame.from_dict(model_xgb3.get_booster().get_fscore(), orient='index')
-             ## df_feature.columns =dfx1.columns.values.tolist()
+              df_feature.columns =dfx1.columns.values.tolist()
               df_feature.columns = ['Feature Importance']
-              ##df_feature.columns =dfx1.columns
               list(dfx1.columns)
-              df_feature
-              
 
 #Using list(df) to get the list of all Column Names
 
