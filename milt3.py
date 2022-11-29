@@ -52,7 +52,6 @@ def upload_different_data(uploaded_file):
     # Drop rows with all Null
     df = df.fillna(0)
     data=df ##,  = data_preprocessing(df)
-    dg=data
     return df, data,  'Uploaded file', rows, columns
     
 
@@ -148,7 +147,7 @@ def home_page_builder(df, data, rows, columns):
    
     # Insert Check-Box to show the snippet of the data.
     if  st.checkbox('Show Data'):
-        ##st.subheader("Raw data")
+        st.subheader("Raw data")
         st.write(
             f'Input dataset includes **{rows}** rows and **{columns}** columns')
         ##st.write(data.head())
@@ -168,7 +167,7 @@ def home_page_builder(df, data, rows, columns):
 
         st.plotly_chart(fig)
         st.write('We can see Approved is about three times of Decliened, which may bring an imbalanced issue for prediction - we will deal with this issue during modeling.')
-        ##st.write('-'*60)
+        st.write('-'*60)
       
       ##второй рисунок подряд 
       ## fig = px.histogram(df.time, x='time',
@@ -243,8 +242,6 @@ def featureimp (data):
 
 
 def xgb_page_builder(data,data2 ):
-    
-
     st.sidebar.header('Hyper Parameters')
     st.sidebar.markdown('You can tune the hyper parameters by siding')
     max_depth = st.sidebar.slider('Select max_depth (default = 30)', 3, 30, 30)
@@ -311,7 +308,6 @@ def main():
     st.write('')
     st.write('')
     st.write('')
-    
     uploaded_file = st.file_uploader(
         "",
         key="1",
@@ -323,15 +319,15 @@ def main():
         uploaded_file.seek(0)
     
         df, data, filename, rows, columns = upload_different_data(uploaded_file)
+        home_page_builder(df, data, rows, columns)
+        df.head(4)
 
- 
-
-    
+   
     uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
     data2 = pd.read_csv(uploaded_file2, low_memory=False)
     st.write('Uploaded data:', data2.head(30))
-
-    
+    scaler = MinMaxScaler() 
+    V = scaler.fit_transform( data2 )
             
        
 
