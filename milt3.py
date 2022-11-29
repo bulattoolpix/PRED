@@ -242,6 +242,14 @@ def featureimp (data):
 
 
 def xgb_page_builder(data,data2 ):
+    
+    uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
+    data2 = pd.read_csv(uploaded_file2, low_memory=False)
+    st.write('Uploaded data:', data2.head(30))
+    scaler = MinMaxScaler() 
+    V = scaler.fit_transform( data2 )
+    
+    
     st.sidebar.header('Hyper Parameters')
     st.sidebar.markdown('You can tune the hyper parameters by siding')
     max_depth = st.sidebar.slider('Select max_depth (default = 30)', 3, 30, 30)
@@ -323,11 +331,6 @@ def main():
         df.head(4)
 
    
-    uploaded_file2 = st.file_uploader("Choose a CSV file_topredict", type="csv")
-    data2 = pd.read_csv(uploaded_file2, low_memory=False)
-    st.write('Uploaded data:', data2.head(30))
-    scaler = MinMaxScaler() 
-    V = scaler.fit_transform( data2 )
             
        
 
