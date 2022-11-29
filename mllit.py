@@ -147,8 +147,7 @@ def prediction_downloader(data2):
 def home_page_builder( df, data, rows, columns):
  
     st.title("Streamlit Demo")
-    st.write('')
-    st.write('')
+
     st.subheader('INTRODUCTION')
     st.write('')
     st.write(
@@ -162,7 +161,7 @@ def home_page_builder( df, data, rows, columns):
         st.subheader("Raw data")
         st.write(
             f'Input dataset includes **{rows}** rows and **{columns}** columns')
-        st.write(df.head())
+      ##  st.write(df.head())
     
         st.write(data.head())
 
@@ -322,7 +321,7 @@ def main():
     if uploaded_file is not None:
         global df
         df = pd.read_csv(uploaded_file)
-        uploaded_file.seek(0)
+        ##uploaded_file.seek(0)
     
         df, data, filename, rows, columns = upload_different_data(uploaded_file)
     
@@ -336,7 +335,7 @@ def main():
         global df2 
       
         df2 = pd.read_csv(uploaded_file2)
-        uploaded_file2.seek(0)
+        ##uploaded_file2.seek(0)
         df2, data2, filename2, rows2, columns2 = upload_different_data2(uploaded_file2)
     
 
