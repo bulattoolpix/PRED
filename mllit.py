@@ -139,7 +139,7 @@ def prediction_downloader(data2):
   
   
 def home_page_builder(df, data, rows, columns):
-    st.title(""""P R E D I C T I O N   M O D U L E"""")
+    st.title("E X P L O R E   M O D U L E")
     st.write('')
     st.write('')
     st.subheader('')
@@ -247,6 +247,7 @@ def featureimp (data):
 
 
 def xgb_page_builder(data,data2 ):
+    st.title("P R E D I C T I O N   M O D U L E")
     st.sidebar.header('Hyper Parameters')
     st.sidebar.markdown('You can tune the hyper parameters by siding')
     max_depth = st.sidebar.slider('Select max_depth (default = 30)', 3, 30, 30)
