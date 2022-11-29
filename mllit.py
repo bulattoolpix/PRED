@@ -28,7 +28,6 @@ from functionforDownloadButtons import download_button
 from sklearn.preprocessing import OrdinalEncoder, LabelEncoder
 from sklearn.preprocessing import PowerTransformer
 from sklearn.model_selection import train_test_split
-from matplotlib import pyplot
 
 
   
@@ -207,14 +206,14 @@ def xgb_predictor(df,data2,params_set ):
     ##fig.update_xaxes(tickangle=45, title_text='Features')
     ##fig.update_yaxes(title_text='Feature Importance')
     ##st.plotly_chart(fig)
-    return data2, model_xgb2
+    return data2, model_xgb2,df_feature
 
-## не работает
-def featureimp (data):
+
+def featureimp (df,df_feature):
     scaler = MinMaxScaler()  
-    dfx1 = data.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
+    dfx1 = df.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
     X1= scaler.fit_transform(dfx1)
-    y1 = data.iloc[:, -1]
+    y1 = df.iloc[:, -1]
     X_train1, X_test1, y_train1, y_test1 = train_test_split(X1, y1, test_size = 0.25, random_state = 0)
  
     model_xgb3 = XGBClassifier()
@@ -229,7 +228,7 @@ def featureimp (data):
     ##fig.update_xaxes(tickangle=45, title_text='Features')
     ##fig.update_yaxes(title_text='Feature Importance')
     ##st.plotly_chart(fig)
-    return  feature_importance,df_feature
+    return model_xgb3,df_feature
        
 
 
@@ -280,7 +279,7 @@ def xgb_page_builder(data,data2 ):
     # Download prediction as a CSV file
    
    
-    return   model_xgb2
+    return feature_importance,  model_xgb2
           # Plot feature importance
   
   
@@ -326,32 +325,8 @@ def main():
         home_page_builder(df, data, rows, columns)
     if choose_model == "XGB":
         model_xgb = xgb_page_builder(data,data2  )
-        if(st.checkbox("Want to Use this model to predict on a new dataset?")):
-           ##prediction_downloader(data2) ###загрузк
- ##             featureimp (df)
-              scaler = MinMaxScaler()  
-              dfx1 = data.iloc[:, :-1]   ##gоследняя колонка классы  (отбрасывается
-              X1= scaler.fit_transform(dfx1)
-              y1 = data.iloc[:, -1]
-              X_train1, X_test1, y_train1, y_test1 = train_test_split(X1, y1, test_size = 0.25, random_state = 0)
- 
-              model_xgb3 = XGBClassifier()
-    # model = XGBClassifier()
-              model_xgb3.fit(X_train1, y_train1)
-    
-              df_feature = pd.DataFrame.from_dict(model_xgb3.get_booster().get_fscore(), orient='index')
-              df_feature.columns = ['Feature Importance']
-    
-              feature_importance=df_feature.sort_values(by='Feature Importance', ascending=False).T
-              feature_importance
-        
-              sorted_idx = model_xgb3.feature_importances_.argsort()
-           
-              pyplot.bar(range(len(model_xgb3.feature_importances_)), model_xgb3.feature_importances_)
-              pyplot.show()
-              st.pyplot(pyplot.bar(range(len(model_xgb3.feature_importances_)), model_xgb3.feature_importances_)) 
-
-
+       ## if(st.checkbox("Want to Use this model to predict on a new dataset?")):
+           ##prediction_downloader(data2) ###загрузка
 
             
         
