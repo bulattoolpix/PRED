@@ -41,7 +41,7 @@ import plotly.graph_objects as go
 st.set_page_config(
     page_title = "modeling",
     layout = "centered",
-    page_icon= ":shark:",
+    page_icon= ":lion:",
     initial_sidebar_state = 'auto'
     )
 
