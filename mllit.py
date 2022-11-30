@@ -28,8 +28,10 @@ from functionforDownloadButtons import download_button
 from sklearn.preprocessing import OrdinalEncoder, LabelEncoder
 from sklearn.preprocessing import PowerTransformer
 from sklearn.model_selection import train_test_split
+from sklearn.decomposition import PCA
 from matplotlib import pyplot
 import plotly.graph_objects as go
+import plotly.express as px
 
 
   
@@ -208,7 +210,12 @@ def xgb_predictor(df,data2,params_set ):
     # model = XGBClassifier()
     model_xgb2.fit(X_train1, y_train1)
     
-
+    pca = PCA(n_components=3)
+    components = pca.fit_transform(Xzero)
+    fig = px.scatter_3d(components, x=0, y=1, z=2, color=df.iloc[:, -1],title=f'Total Explained Variance: {var}',
+    labels={'0':'PC1', '1':'PC2', '2':'PC3'})
+    fig.show()
+    
     # Make predictions for test data
     data2['target'] =  model_xgb2.predict(Xzero)
     
