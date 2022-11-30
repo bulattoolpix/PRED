@@ -281,7 +281,7 @@ def xgb_page_builder(data,data2 ):
     model_xgb2= xgb_predictor(data,data2,params_set )   ####прогноз новой выборки на основе выставленных гипермарметров 
     ##featureimp (data)
     ##df_feature = pd.DataFrame.from_dict(model_xgb2.get_booster().get_fscore(), orient='index')
-    st.plotly_chart(fig)
+    ##st.plotly_chart(fig)
     st.subheader('Model Hyper tuned Parameters')
     st.write('',params_set)
     st.write('XGBoost - e**X**treme **G**radient **B**oosting, is an implementation of gradient boosted **decision trees** designed for speed and performance, which has recently been dominating applied machine learning. We recommend you choose this model to do the prediction.')
@@ -369,7 +369,15 @@ def main():
               X1= scaler.fit_transform(dfx1)
               y1 = data.iloc[:, -1]
               X_train1, X_test1, y_train1, y_test1 = train_test_split(X1, y1, test_size = 0.25, random_state = 0)
- 
+              
+              pca = PCA(n_components=3)
+              components = pca.fit_transform(X1)
+              var = pca.explained_variance_ratio_.sum()
+              fig = px.scatter_3d(components, x=0, y=1, z=2, color=y1,title=f'Total Explained Variance: {var}',
+              labels={'0':'PC1', '1':'PC2', '2':'PC3'})
+              st.plotly_chart(fig) 
+              fig.show()
+              
               model_xgb3 = XGBClassifier()
     # model = XGBClassifier()
               model_xgb3.fit(X_train1, y_train1)
