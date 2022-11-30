@@ -228,7 +228,7 @@ def xgb_predictor(df,data2,params_set ):
     ##fig.update_xaxes(tickangle=45, title_text='Features')
     ##fig.update_yaxes(title_text='Feature Importance')
     ##st.plotly_chart(fig)
-    return data2, model_xgb2
+    return data2, model_xgb2,fig 
 
 ## не работает
 def featureimp (data):
@@ -281,7 +281,7 @@ def xgb_page_builder(data,data2 ):
     model_xgb2= xgb_predictor(data,data2,params_set )   ####прогноз новой выборки на основе выставленных гипермарметров 
     ##featureimp (data)
     ##df_feature = pd.DataFrame.from_dict(model_xgb2.get_booster().get_fscore(), orient='index')
-    
+    st.plotly_chart(fig)
     st.subheader('Model Hyper tuned Parameters')
     st.write('',params_set)
     st.write('XGBoost - e**X**treme **G**radient **B**oosting, is an implementation of gradient boosted **decision trees** designed for speed and performance, which has recently been dominating applied machine learning. We recommend you choose this model to do the prediction.')
