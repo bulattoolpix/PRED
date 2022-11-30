@@ -211,7 +211,7 @@ def xgb_predictor(df,data2,params_set ):
     model_xgb2.fit(X_train1, y_train1)
     
     pca = PCA(n_components=3)
-    components = pca.fit_transform(Xzero)
+    components = pca.fit_transform(X1)
     var = pca.explained_variance_ratio_.sum()
     fig = px.scatter_3d(components, x=0, y=1, z=2, color=y1,title=f'Total Explained Variance: {var}',
     labels={'0':'PC1', '1':'PC2', '2':'PC3'})
